@@ -8,7 +8,7 @@ const BreadCrumb = ({page}) => {
           <li className="inline-flex items-center">
             <a
               href="#"
-              className="inline-flex items-center text-sm font-medium text-gray-700 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
+              className="inline-flex items-center text-sm font-medium text-cyan-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
             >
               <svg
                 className="w-4 h-4 mr-2"
@@ -37,7 +37,7 @@ const BreadCrumb = ({page}) => {
               </svg>
               <a
                 href="#"
-                className="ml-1 text-sm font-medium text-gray-700 hover:text-gray-900 md:ml-2 dark:text-gray-400 dark:hover:text-white"
+                className="ml-1 text-sm font-medium text-gray-600 hover:text-gray-900 md:ml-2 dark:text-gray-400 dark:hover:text-white"
               >
                 {page}
               </a>

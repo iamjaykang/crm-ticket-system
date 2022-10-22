@@ -8,7 +8,7 @@ const DefaultLayout = ({children}) => {
       <header className="flex-1 mb-2">
         <Header />
       </header>
-      <main className="flex-1">
+      <main className="flex-1 flex justify-center items-center">
       {children}
       </main>
       <footer className="mt-10 flex flex-col justify-center items-center bg-slate-800 text-white flex-1">
