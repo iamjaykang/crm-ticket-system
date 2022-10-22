@@ -4,7 +4,7 @@ import TicketTable from "../../components/TicketTable/TicketTable";
 
 const Dashboard = () => {
   return (
-    <div className="container flex flex-col justify-start items-center">
+    <div className="container flex flex-col">
       <div className="mb-6">
         <BreadCrumb page="Dashboard"/>
       </div>
