@@ -4,14 +4,14 @@ import Header from "./Partials/Header";
 
 const DefaultLayout = ({children}) => {
   return (
-    <div className="grid grid-rows-3 h-screen">
-      <header className="min-h-[6vh]">
+    <div className="flex flex-col h-screen">
+      <header className="flex-1 mb-2">
         <Header />
       </header>
-      <body className="">
+      <main className="flex-1">
       {children}
-      </body>
-      <footer className="bg-gray-200 min-h-[6vh]">
+      </main>
+      <footer className="mt-10 flex flex-col justify-center items-center bg-slate-800 text-white flex-1">
         <Footer />
       </footer>
     </div>
