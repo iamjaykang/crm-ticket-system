@@ -1,6 +1,7 @@
 const { json } = require("body-parser");
 const express = require("express");
 const { hashPassword, comparePassword } = require("../helpers/bcrypt-helper");
+const { createAccessJWT, createRefreshJWT } = require("../helpers/jwt-helper");
 const router = express.Router();
 const { insertUser, getUserByEmail } = require("../models/user/user-model");
 
@@ -58,9 +59,22 @@ router.post("/login", async (req, res) => {
 
   const result = await comparePassword(password, passFromDb);
 
+  if (!result) {
+    return res.json({ status: "error", message: "Invalid email or password!" });
+  }
+
+  const accessJWT = await createAccessJWT(user.email);
+
+  const refreshJWT = await createRefreshJWT(user.email);
+
   console.log(result);
 
-  res.json({ status: "success", message: "Login Successfully!" });
+  res.json({
+    status: "success",
+    message: "Login Successfully!",
+    accessJWT,
+    refreshJWT,
+  });
 });
 
 module.exports = router;
