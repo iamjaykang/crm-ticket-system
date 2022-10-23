@@ -1,8 +1,8 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState } from "react";
 import logo from "../../assets/images/logo.png";
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
+import {Link} from 'react-router-dom';
 
 const Header = () => {
   const [navbarOpen, setNavbarOpen] = useState(false);
@@ -34,28 +34,31 @@ const Header = () => {
           >
             <ul className="flex flex-col lg:flex-row list-none lg:ml-auto">
               <li className="nav-item">
-                <a
+                <Link
                   className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75"
-                  href="#pablo"
+                  to='/dashboard'
+                  onClick={() => setNavbarOpen(!navbarOpen)}
                 >
                   <span className="ml-2">Dashboard</span>
-                </a>
+                </Link>
               </li>
               <li className="nav-item">
-                <a
+                <Link
                   className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75"
-                  href="#pablo"
+                  to="/tickets"
+                  onClick={() => setNavbarOpen(!navbarOpen)}
                 >
                   <span className="ml-2">Tickets</span>
-                </a>
+                </Link>
               </li>
               <li className="nav-item">
-                <a
+                <Link
                   className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75"
-                  href="#pablo"
+                  to='/logout'
+                  onClick={() => setNavbarOpen(!navbarOpen)}
                 >
                   <span className="ml-2">Logout</span>
-                </a>
+                </Link>
               </li>
             </ul>
           </div>

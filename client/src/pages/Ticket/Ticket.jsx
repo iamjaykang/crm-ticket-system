@@ -4,11 +4,15 @@ import tickets from "../../assets/data/dummyTicket.json";
 import MessageHistory from "../../components/MessageHistory/MessageHistory";
 import UpdateTicket from "../../components/UpdateTicket/UpdateTicket";
 import { useEffect } from "react";
+import { useParams } from "react-router-dom";
 
-const ticket = tickets[0];
+// const ticket = tickets[0];
 
 const Ticket = () => {
+  const { tId } = useParams();
+
   const [message, setMessage] = useState("");
+  const [ticket, setTicket] = useState("");
 
   const onChangeHandler = (e) => {
     const { value } = e.target;
@@ -17,11 +21,18 @@ const Ticket = () => {
   };
 
   const onSubmitHandler = (e) => {
-
-    alert('Form submitted!');
+    alert("Form submitted!");
   };
 
-  useEffect(() => {}, [message]);
+  //   if ticket id equals params id ticket is set to the ticket
+  useEffect(() => {
+    for (let i = 0; i < tickets.length; i++) {
+      if (tickets[i].id == tId) {
+        setTicket(tickets[i]);
+        continue;
+      }
+    }
+  }, [message, tId]);
   return (
     <div className="container">
       <div>
@@ -49,10 +60,14 @@ const Ticket = () => {
         </div>
       </div>
       <div>
-        <MessageHistory messages={ticket.history} />
+        {ticket.history && <MessageHistory messages={ticket.history} />}
       </div>
       <div className="mt-4">
-        <UpdateTicket message={message} onChangeHandler={onChangeHandler} onSubmitHandler={onSubmitHandler} />
+        <UpdateTicket
+          message={message}
+          onChangeHandler={onChangeHandler}
+          onSubmitHandler={onSubmitHandler}
+        />
       </div>
     </div>
   );
