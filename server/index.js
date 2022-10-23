@@ -7,7 +7,7 @@ const helmet = require("helmet");
 const port = process.env.PORT || 3080;
 
 // API security
-app.use(helmet());
+// app.use(helmet());
 
 // handle CORS error
 app.use(cors());

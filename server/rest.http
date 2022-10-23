@@ -1,0 +1,23 @@
+### User sign up endpoint
+
+POST http://localhost:3080/v1/user
+Content-Type: application/json
+
+{
+    "name": "Jay Kang",
+    "company": "Healthright",
+    "address": "Some address NZ",
+    "phone": "0274818111",
+    "email": "test1@test.com",
+    "password": "secret123"
+}
+
+### User sign in endpoint
+
+POST http://localhost:3080/v1/user/login
+Content-Type: application/json
+
+{
+    "email": "test1@test.com",
+    "password": "secret123"
+}
