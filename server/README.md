@@ -1,4 +1,4 @@
-# CRM server side API
+# CRM API
 
 This API is a part of CRM ticket system with MERN stack.
 
@@ -18,8 +18,8 @@ All the user API router follows `/v1/user/`
 
 | #   | Routers                   | Verbs  | Progress | Is Private | Description                                      |
 | --- | ------------------------- | ------ | -------- | ---------- | ------------------------------------------------ |
-| 1   | `/v1/user`                | GET    | TODO     | Yes        | Get user Info                                    |
-| 2   | `/v1/user`                | POST   | TODO     | No         | Create a user                                    |
+| 1   | `/v1/user`                | GET    | DONE     | Yes        | Get user Info                                    |
+| 2   | `/v1/user`                | POST   | DONE     | No         | Create a user                                    |
 | 3   | `/v1/user/login`          | POST   | TODO     | No         | Verify user Authentication and return JWT        |
 | 4   | `/v1/user/reset-password` | POST   | TODO     | No         | Verify email and email pin to reset the password |
 | 5   | `/v1/user/reset-password` | PATCH  | TODO     | No         | Replace with new password                        |
