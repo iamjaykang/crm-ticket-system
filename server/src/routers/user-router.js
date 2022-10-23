@@ -17,7 +17,7 @@ router.all("/", (req, res, next) => {
 
 //Get user profile router
 router.get("/", userAuthorization, async (req, res) => {
-  //this date is coming from database
+  //this data is coming from database
   const _id = req.userId;
 
   const userProfile = await getUserById(_id);
