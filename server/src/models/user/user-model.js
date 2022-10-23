@@ -67,4 +67,9 @@ const storeUserRefreshJWT = (_id, token) => {
   });
 };
 
-module.exports = { insertUser, getUserByEmail, getUserById, storeUserRefreshJWT };
+module.exports = {
+  insertUser,
+  getUserByEmail,
+  getUserById,
+  storeUserRefreshJWT,
+};
