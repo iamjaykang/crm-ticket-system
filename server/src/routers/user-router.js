@@ -3,6 +3,7 @@ const express = require("express");
 const { hashPassword, comparePassword } = require("../helpers/bcrypt-helper");
 const { emailProcessor } = require("../helpers/email-helper");
 const { createAccessJWT, createRefreshJWT } = require("../helpers/jwt-helper");
+const { deleteJWT } = require("../helpers/redis-helper");
 const { userAuthorization } = require("../middlewares/authorization");
 const {
   resetPassReqValidation,
@@ -19,6 +20,7 @@ const {
   getUserByEmail,
   getUserById,
   updatePassword,
+  storeUserRefreshJWT,
 } = require("../models/user/user-model");
 
 router.all("/", (req, res, next) => {
@@ -111,6 +113,9 @@ router.post("/login", async (req, res) => {
 // 4. save pin and email in db
 // 5. email the pin
 
+// C. Server side form validation
+// 1. middleware to validate form data
+
 // reset password router
 
 router.post("/reset-password", resetPassReqValidation, async (req, res) => {
@@ -146,7 +151,7 @@ router.post("/reset-password", resetPassReqValidation, async (req, res) => {
 // 5. send email notification
 
 // C. Server side form validation
-// 1. create middleware to validate form data
+// 1. middleware to validate form data
 
 router.patch("/reset-password", updatePassValidation, async (req, res) => {
   const { email, pin, newPassword } = req.body;
@@ -180,6 +185,25 @@ router.patch("/reset-password", updatePassValidation, async (req, res) => {
     status: "error",
     message: "Unable to update your password",
   });
+});
+
+// User logout and invalidate jwts
+// 1. get jwt and verify
+// 2. delete accessJWT from redis db
+// 3. delete refreshJWT from mongodb
+
+router.delete("/logout", userAuthorization, async (req, res) => {
+  const { authorization } = req.headers;
+
+  const _id = req.userId;
+
+  deleteJWT(authorization);
+
+  const result = await storeUserRefreshJWT(_id, "");
+  if (result._id) {
+    return res.json({ status: "success", message: "Logged out Successfully!" });
+  }
+  res.json({ status: "error", message: "Unable to logout, please try again" });
 });
 
 module.exports = router;
