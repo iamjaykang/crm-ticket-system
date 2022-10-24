@@ -1,6 +1,6 @@
 const express = require("express");
 const { userAuthorization } = require("../middlewares/authorization");
-const { insertTicket, getTickets } = require("../models/ticket/ticket-model");
+const { insertTicket, getTickets, getTicketById } = require("../models/ticket/ticket-model");
 const router = express.Router();
 
 // 1. create url endpoints
@@ -58,12 +58,35 @@ router.post("/", userAuthorization, async (req, res) => {
   }
 });
 
-// Get all tickets router for specific user
+// Get all tickets router for a specific user
 router.get("/", userAuthorization, async (req, res) => {
   try {
-    const userId = req.userId;
+    const clientId = req.userId;
 
-    const result = await getTickets(userId);
+    const result = await getTickets(clientId);
+
+    if (result.length) {
+      return res.json({
+        status: "success",
+        result,
+      });
+    }
+  } catch (error) {
+    res.json({
+      status: "error",
+      message: error.message,
+    });
+  }
+});
+
+// Get ticket by id for a specific user
+router.get("/:_id", userAuthorization, async (req, res) => {
+  console.log(req.params)
+  try {
+    const {_id} = req.params;
+    const clientId = req.userId;
+
+    const result = await getTicketById(_id,clientId);
 
     if (result.length) {
       return res.json({
