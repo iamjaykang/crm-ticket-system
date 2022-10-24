@@ -5,6 +5,10 @@ const { emailProcessor } = require("../helpers/email-helper");
 const { createAccessJWT, createRefreshJWT } = require("../helpers/jwt-helper");
 const { userAuthorization } = require("../middlewares/authorization");
 const {
+  resetPassReqValidation,
+  updatePassValidation,
+} = require("../middlewares/formValidation-middleware");
+const {
   setPasswordResetPin,
   getPinByEmailPin,
   deletePin,
@@ -109,7 +113,7 @@ router.post("/login", async (req, res) => {
 
 // reset password router
 
-router.post("/reset-password", async (req, res) => {
+router.post("/reset-password", resetPassReqValidation, async (req, res) => {
   const { email } = req.body;
   const user = await getUserByEmail(email);
   if (user && user._id) {
@@ -144,7 +148,7 @@ router.post("/reset-password", async (req, res) => {
 // C. Server side form validation
 // 1. create middleware to validate form data
 
-router.patch("/reset-password", async (req, res) => {
+router.patch("/reset-password", updatePassValidation, async (req, res) => {
   const { email, pin, newPassword } = req.body;
 
   const getPin = await getPinByEmailPin(email, pin);
