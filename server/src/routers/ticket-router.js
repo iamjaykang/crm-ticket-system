@@ -5,6 +5,7 @@ const {
   getTickets,
   getTicketById,
   updateClientReply,
+  updateStatusClosed,
 } = require("../models/ticket/ticket-model");
 const router = express.Router();
 
@@ -109,7 +110,6 @@ router.get("/:_id", userAuthorization, async (req, res) => {
 
 // Update reply message from client
 router.put("/:_id", userAuthorization, async (req, res) => {
-  console.log(req.params);
   try {
     const { message, sender } = req.body;
     const { _id } = req.params;
@@ -126,6 +126,32 @@ router.put("/:_id", userAuthorization, async (req, res) => {
     res.json({
       status: "error",
       message: "Unable to update your message, please try again later",
+    });
+  } catch (error) {
+    res.json({
+      status: "error",
+      message: error.message,
+    });
+  }
+});
+
+// Update ticket status to close
+router.patch("/close-ticket/:_id", userAuthorization, async (req, res) => {
+  try {
+    const { _id } = req.params;
+    const clientId = req.userId;
+
+    const result = await updateStatusClosed({ _id, clientId });
+
+    if (result._id) {
+      return res.json({
+        status: "success",
+        message: "The ticket has been closed",
+      });
+    }
+    res.json({
+      status: "error",
+      message: "Unable to update the ticket, please try again later",
     });
   } catch (error) {
     res.json({
