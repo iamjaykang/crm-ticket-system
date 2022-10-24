@@ -20,9 +20,9 @@ All the user API router follows `/v1/user/`
 | --- | ------------------------- | ------ | -------- | ---------- | ------------------------------------------------ |
 | 1   | `/v1/user`                | GET    | DONE     | Yes        | Get user Info                                    |
 | 2   | `/v1/user`                | POST   | DONE     | No         | Create a user                                    |
-| 3   | `/v1/user/login`          | POST   | TODO     | No         | Verify user Authentication and return JWT        |
-| 4   | `/v1/user/reset-password` | POST   | TODO     | No         | Verify email and email pin to reset the password |
-| 5   | `/v1/user/reset-password` | PATCH  | TODO     | No         | Replace with new password                        |
+| 3   | `/v1/user/login`          | POST   | DONE     | No         | Verify user Authentication and return JWT        |
+| 4   | `/v1/user/reset-password` | POST   | DONE     | No         | Verify email and email pin to reset the password |
+| 5   | `/v1/user/reset-password` | PATCH  | DONE     | No         | Replace with new password                        |
 | 6   | `/v1/user/logout`         | DELETE | TODO     | Yes        | Delete user accessJWT                            |
 
 ### Ticket API Resources
