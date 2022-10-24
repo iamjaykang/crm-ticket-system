@@ -1,6 +1,11 @@
 const express = require("express");
 const { userAuthorization } = require("../middlewares/authorization");
-const { insertTicket, getTickets, getTicketById } = require("../models/ticket/ticket-model");
+const {
+  insertTicket,
+  getTickets,
+  getTicketById,
+  updateClientReply,
+} = require("../models/ticket/ticket-model");
 const router = express.Router();
 
 // 1. create url endpoints
@@ -81,12 +86,12 @@ router.get("/", userAuthorization, async (req, res) => {
 
 // Get ticket by id for a specific user
 router.get("/:_id", userAuthorization, async (req, res) => {
-  console.log(req.params)
+  console.log(req.params);
   try {
-    const {_id} = req.params;
+    const { _id } = req.params;
     const clientId = req.userId;
 
-    const result = await getTicketById(_id,clientId);
+    const result = await getTicketById(_id, clientId);
 
     if (result.length) {
       return res.json({
@@ -94,6 +99,34 @@ router.get("/:_id", userAuthorization, async (req, res) => {
         result,
       });
     }
+  } catch (error) {
+    res.json({
+      status: "error",
+      message: error.message,
+    });
+  }
+});
+
+// Update reply message from client
+router.put("/:_id", userAuthorization, async (req, res) => {
+  console.log(req.params);
+  try {
+    const { message, sender } = req.body;
+    const { _id } = req.params;
+    const clientId = req.userId;
+
+    const result = await updateClientReply({ _id, message, sender });
+
+    if (result._id) {
+      return res.json({
+        status: "success",
+        message: "Your message has been updated",
+      });
+    }
+    res.json({
+      status: "error",
+      message: "Unable to update your message, please try again later",
+    });
   } catch (error) {
     res.json({
       status: "error",
