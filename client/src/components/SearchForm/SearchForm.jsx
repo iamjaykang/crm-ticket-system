@@ -1,11 +1,17 @@
 import React from "react";
+import { useDispatch } from "react-redux";
+import {filterSearchTicket} from '../../pages/TicketList/ticketsAction'
 
-const SearchForm = (props) => {
-    const { onChangeHandler, onSubmitHandler, searchInput} =
-    props;
+const SearchForm = () => {
+  const dispatch = useDispatch();
+  const onChangeHandler = (e) => {
+    const { name, value } = e.target;
+    console.log(e.target.value);
+    dispatch(filterSearchTicket(value));
+  };
   return (
     <div>
-      <form onSubmit={onSubmitHandler}>
+      <form>
         <label
           htmlFor="default-search"
           className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-gray-300"
@@ -34,7 +40,6 @@ const SearchForm = (props) => {
             type="search"
             id="default-search"
             name="serachInput"
-            value={searchInput}
             onChange={onChangeHandler}
             className="block p-4 pl-10 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             placeholder="Search ..."

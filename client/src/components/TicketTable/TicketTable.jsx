@@ -1,8 +1,13 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import tickets from "../../assets/data/dummyTicket.json";
 
-const TicketTable = ({ tickets }) => {
+const TicketTable = () => {
+  const { searchTicketList, isLoading, error } = useSelector((state) => state.tickets);
+
+  if (isLoading) return <h3>Loading ...</h3>;
+
+  if (error) return <h3>{error}</h3>;
   return (
     <div>
       <div className="overflow-x-auto relative shadow-xl sm:rounded-lg">
@@ -39,8 +44,8 @@ const TicketTable = ({ tickets }) => {
             </tr>
           </thead>
           <tbody>
-            {tickets.length ? (
-              tickets.map((row) => (
+            {searchTicketList.length ? (
+              searchTicketList.map((row) => (
                 <tr
                   key={row.id}
                   className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
