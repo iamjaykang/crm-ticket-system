@@ -31,19 +31,42 @@ const sendEmail = (info) => {
   });
 };
 
-const emailProcessor = (email, pin) => {
-  const info = {
-    from: '"CRM Company" <benton.schmitt98@ethereal.email>', // sender address
-    to: email, // list of receivers
-    subject: "Password reset Pin", // Subject line
-    text: `Here is your password reset pin ${pin} This pin will expire in 15 minutes`, // plain text body
-    html: `<b>Hello</b>
-    Here is your password reset pin
-    <b>${pin} </b>
-    This pin will expire in 15 minutes`, // html body
-  };
+const emailProcessor = ({email, pin, type}) => {
+  let info = "";
+  switch (type) {
+    case "request-new-password":
+      info = {
+        from: '"CRM Company" <benton.schmitt98@ethereal.email>', // sender address
+        to: email, // list of receivers
+        subject: "Password reset Pin", // Subject line
+        text: `Here is your password reset pin ${pin} This pin will expire in 15 minutes`, // plain text body
+        html: `<b>Hello</b>
+                Here is your password reset pin
+                <b>${pin} </b>
+                This pin will expire in 15 minutes`, // html body
+      };
 
-  sendEmail(info);
+      sendEmail(info);
+
+      break;
+
+    case "password-update-success":
+      info = {
+        from: '"CRM Company" <benton.schmitt98@ethereal.email>', // sender address
+        to: email, // list of receivers
+        subject: "Password updated", // Subject line
+        text: `Your password has been update successfully!`, // plain text body
+        html: `<b>Hello</b>
+        <p>Your password has been update successfully!</p>`, // html body
+      };
+
+      sendEmail(info);
+
+      break;
+
+    default:
+      break;
+  }
 };
 
 module.exports = { emailProcessor };

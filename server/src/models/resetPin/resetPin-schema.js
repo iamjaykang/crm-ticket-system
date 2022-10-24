@@ -12,6 +12,11 @@ const ResetPinSchema = new Schema({
     maxlength: 50,
     required: true,
   },
+  addedAt: {
+    type: Date,
+    required: true,
+    default: Date.now(),
+  },
 });
 
 //mongoose will automatically enter collection as users when 'User' is put
