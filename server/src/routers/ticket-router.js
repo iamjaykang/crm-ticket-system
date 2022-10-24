@@ -1,5 +1,6 @@
 const express = require("express");
 const { userAuthorization } = require("../middlewares/authorization");
+const { createNewTicketValidation, replyTicketMessageValidation } = require("../middlewares/formValidation-middleware");
 const {
   insertTicket,
   getTickets,
@@ -29,7 +30,7 @@ router.all("/", (req, res, next) => {
 // create url endpoints
 
 // Create new ticket router
-router.post("/", userAuthorization, async (req, res) => {
+router.post("/", createNewTicketValidation,userAuthorization, async (req, res) => {
   try {
     const { subject, sender, message } = req.body;
 
@@ -110,7 +111,7 @@ router.get("/:_id", userAuthorization, async (req, res) => {
 });
 
 // Update reply message from client
-router.put("/:_id", userAuthorization, async (req, res) => {
+router.put("/:_id", replyTicketMessageValidation,userAuthorization, async (req, res) => {
   try {
     const { message, sender } = req.body;
     const { _id } = req.params;

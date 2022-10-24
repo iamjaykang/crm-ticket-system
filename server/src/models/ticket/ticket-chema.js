@@ -7,7 +7,7 @@ const TicketSchema = new Schema({
   },
   subject: {
     type: String,
-    maxlength: 100,
+    maxlength: 50,
     required: true,
     default: "",
   },
