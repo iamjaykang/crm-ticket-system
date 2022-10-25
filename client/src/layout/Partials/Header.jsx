@@ -2,24 +2,17 @@ import React, { useState } from "react";
 import logo from "../../assets/images/logo.png";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
-import { Link, redirect, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { LinkContainer } from "react-router-bootstrap";
 import { userLogout } from "../../api/userApi";
-import { useEffect } from "react";
 
 const Header = () => {
   const [navbarOpen, setNavbarOpen] = useState(false);
-  const navigate = useNavigate();
-
-  const logMeOut = (e) => {
-    e.preventDefault();
+  const logMeOut = () => {
     sessionStorage.removeItem("accessJWT");
-    navigate("/");
+    localStorage.removeItem("crmSite");
+    userLogout();
   };
-  useEffect(() => {
-    if (!sessionStorage.getItem("accessJWT")) {
-      navigate("/");
-    }
-  }, []);
   return (
     <>
       <nav className="relative flex flex-wrap items-center justify-between px-2 py-3 bg-sky-500 mb-3">
@@ -48,26 +41,29 @@ const Header = () => {
           >
             <ul className="flex flex-col lg:flex-row list-none lg:ml-auto">
               <li className="nav-item">
-                <Link
-                  className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75"
-                  to="/dashboard"
-                  onClick={() => setNavbarOpen(!navbarOpen)}
-                >
-                  <span className="ml-2">Dashboard</span>
-                </Link>
+                <LinkContainer to="/dashboard">
+                  <Link
+                    className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75"
+                    onClick={() => setNavbarOpen(!navbarOpen)}
+                  >
+                    <span className="ml-2">Dashboard</span>
+                  </Link>
+                </LinkContainer>
+              </li>
+              <li className="nav-item">
+                <LinkContainer to="/tickets">
+                  <Link
+                    className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75"
+                    onClick={() => setNavbarOpen(!navbarOpen)}
+                  >
+                    <span className="ml-2">Tickets</span>
+                  </Link>
+                </LinkContainer>
               </li>
               <li className="nav-item">
                 <Link
                   className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75"
-                  to="/tickets"
-                  onClick={() => setNavbarOpen(!navbarOpen)}
-                >
-                  <span className="ml-2">Tickets</span>
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link
-                  className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75"
+                  to="/"
                   onClick={logMeOut}
                 >
                   <span className="ml-2">Logout</span>

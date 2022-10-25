@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { signinPending, signinSuccess, signinFail } from "./signInSlice";
 import { userSignin } from "../../api/userApi";
@@ -53,6 +53,10 @@ const SigninForm = (props) => {
     }
     //TODO call api to submit the form
   };
+
+  useEffect(() => {
+    sessionStorage.getItem("accessJWT") && navigate("/dashboard");
+  }, [navigate, isAuth]);
   return (
     <div>
       <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 flex flex-col">
