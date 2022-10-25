@@ -14,9 +14,12 @@ const PrivateRoute = ({ children, ...rest }) => {
       const result = await fetchNewAccessJWT();
       result && dispatch(signinSuccess());
     };
-    updateAccessJWT();
-    sessionStorage.getItem("accessJWT") && dispatch(signinSuccess());
-  }, [dispatch]);
+    !sessionStorage.getItem("accessJWT") &&
+      localStorage.getItem("crmSite") &&
+      updateAccessJWT();
+      
+    !isAuth && sessionStorage.getItem("accessJWT") && dispatch(signinSuccess());
+  }, [isAuth, dispatch]);
   return (
     <>
       {isAuth ? <DefaultLayout>{children}</DefaultLayout> : <Navigate to="/" />}
