@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { signinPending, signinSuccess, signinFail } from "./signInSlice";
-import Spinner from "react-bootstrap/Spinner";
-import Alert from "react-bootstrap/Alert";
-import {userSignin} from '../../api/userApi';
+import { userSignin } from "../../api/userApi";
 import { useNavigate } from "react-router-dom";
+import { getUserProfile } from "../../pages/Dashboard/userAction";
 
 const SigninForm = (props) => {
   const dispatch = useDispatch();
@@ -42,13 +41,14 @@ const SigninForm = (props) => {
     dispatch(signinPending());
 
     try {
-      const isAuth = await userSignin({email,password});
-      console.log(isAuth)
-      if(isAuth.status === 'error'){
+      const isAuth = await userSignin({ email, password });
+      console.log(isAuth);
+      if (isAuth.status === "error") {
         return dispatch(signinFail(isAuth.message));
       }
       dispatch(signinSuccess());
-      navigate('/dashboard');
+      dispatch(getUserProfile());
+      navigate("/dashboard");
     } catch (error) {
       dispatch(signinFail(error.message));
     }
