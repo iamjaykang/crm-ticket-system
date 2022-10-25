@@ -1,10 +1,22 @@
-import React from "react";
+import React, { useEffect } from "react";
 import BreadCrumb from "../../components/BreadCrumb/BreadCrumb";
 import TicketTable from "../../components/TicketTable/TicketTable";
-import tickets from "../../assets/data/dummyTicket.json";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchAllTickets } from "../TicketList/ticketsAction";
 
 const Dashboard = () => {
+  const dispatch = useDispatch();
+  const { tickets } = useSelector((state) => state.tickets);
+
+  useEffect(() => {
+    if (!tickets.length) {
+      dispatch(fetchAllTickets());
+    }
+  }, [tickets, dispatch]);
+
+  const pendingTickets = tickets.filter((row) => row.status !== "Closed");
+  const totlatTickets = tickets.length;
   return (
     <div className="container flex flex-col">
       <div className="mb-6">
@@ -21,8 +33,8 @@ const Dashboard = () => {
         </Link>
       </div>
       <div>
-        <div>Total tickets: 500</div>
-        <div>Pending tickets: 5</div>
+        <div>Total tickets: {totlatTickets}</div>
+        <div>Pending tickets: {pendingTickets.length}</div>
       </div>
       <div className="mt-2">Recently Added tickets</div>
       <div className="mt-2">

@@ -1,9 +1,9 @@
 import React from "react";
+import { useSelector } from "react-redux";
 
-const MessageHistory = (props) => {
-  const { messages } = props;
-  
+const MessageHistory = ({ messages }) => {
   if (!messages) return null;
+
   return messages.map((message, i) => (
     <div
       key={i}
@@ -15,7 +15,7 @@ const MessageHistory = (props) => {
     >
       <div className="send">
         <div className="font-bold text-start">{message.sender}</div>
-        <div className="date">{message.msgAt}</div>
+        <div className="date">{message.msgAt && new Date(message.msgAt).toLocaleDateString()}</div>
       </div>
       <div className="message w-4/5 border p-4">{message.message}</div>
     </div>

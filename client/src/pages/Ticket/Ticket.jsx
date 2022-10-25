@@ -7,6 +7,7 @@ import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchSingleTicket } from "../TicketList/ticketsAction";
+import { getUserProfile } from "../Dashboard/userAction";
 
 // const ticket = tickets[0];
 
@@ -14,26 +15,18 @@ const Ticket = () => {
   let { tId } = useParams();
   console.log(tId);
   const dispatch = useDispatch();
-  const { isLoading, error, selectedTicket, replyMsg, replyTicketError } =
-    useSelector((state) => state.tickets);
+  const { isLoading, error, selectedTicket, replyTicketError } = useSelector(
+    (state) => state.tickets
+  );
+  const { replyMsg } = useSelector((state) => state.replyTicket);
 
   const [message, setMessage] = useState("");
-  const [ticket, setTicket] = useState("");
-
-  const onChangeHandler = (e) => {
-    const { value } = e.target;
-
-    setMessage(value);
-  };
-
-  const onSubmitHandler = (e) => {
-    alert("Form submitted!");
-  };
 
   //   if ticket id equals params id ticket is set to the ticket
   useEffect(() => {
     dispatch(fetchSingleTicket(tId));
-  }, [message, tId]);
+    dispatch(getUserProfile());
+  }, [message, tId, dispatch]);
   return (
     <div className="container">
       <div>
@@ -78,7 +71,10 @@ const Ticket = () => {
           </div>
           <div className="font-bold">
             Ticket Opened:{" "}
-            <span className="font-normal">{selectedTicket.openedAt}</span>
+            <span className="font-normal">
+              {selectedTicket.openedAt &&
+                new Date(selectedTicket.openedAt).toLocaleString()}
+            </span>
           </div>
           <div className="font-bold">
             Status: <span className="font-normal">{selectedTicket.status}</span>
@@ -99,11 +95,7 @@ const Ticket = () => {
         )}
       </div>
       <div className="mt-4">
-        <UpdateTicket
-          message={message}
-          onChangeHandler={onChangeHandler}
-          onSubmitHandler={onSubmitHandler}
-        />
+        <UpdateTicket _id={tId} />
       </div>
     </div>
   );

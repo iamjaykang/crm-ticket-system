@@ -35,3 +35,19 @@ export const getSingleTicket = (_id) => {
     }
   });
 };
+
+export const updateReplyTicket = (_id, msgObj) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const result = await axios.put(ticketUrl + _id, msgObj, {
+        headers: {
+          Authorization: sessionStorage.getItem("accessJWT"),
+        },
+      });
+      resolve(result.data);
+    } catch (error) {
+      console.log(error.message);
+      reject(error);
+    }
+  });
+};

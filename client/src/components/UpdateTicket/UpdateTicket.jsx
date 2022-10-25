@@ -1,9 +1,39 @@
-import React from "react";
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { replyOnTicket } from "./updateTicketAction";
 
-const UpdateTicket = (props) => {
-  const { message, onChangeHandler, onSubmitHandler } = props;
+const UpdateTicket = ({ _id }) => {
+  const dispatch = useDispatch();
+  const {
+    user: { name },
+  } = useSelector((state) => state.user);
+  const { replyMsg } = useSelector((state) => state.replyTicket);
+  const [message, setMessage] = useState("");
+
+  const onChangeHandler = (e) => {
+    setMessage(e.target.value);
+  };
+
+  const onSubmitHandler = (e) => {
+    e.preventDefault();
+    const msgObj = {
+      message,
+      sender: name,
+    };
+    dispatch(replyOnTicket(_id, msgObj));
+    setMessage("");
+  };
+
   return (
     <div className="text-base">
+      {replyMsg && (
+        <div
+          className="p-4 mb-4 text-sm text-red-700 bg-red-100 rounded-lg dark:bg-red-200 dark:text-red-800"
+          role="alert"
+        >
+          {replyMsg}
+        </div>
+      )}
       <form onSubmit={onSubmitHandler}>
         <label htmlFor="detail" className="font-bold text-lg">
           Reply
