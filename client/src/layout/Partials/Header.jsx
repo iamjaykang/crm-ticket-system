@@ -1,11 +1,25 @@
 import React, { useState } from "react";
 import logo from "../../assets/images/logo.png";
-import MenuIcon from '@mui/icons-material/Menu';
-import CloseIcon from '@mui/icons-material/Close';
-import {Link} from 'react-router-dom';
+import MenuIcon from "@mui/icons-material/Menu";
+import CloseIcon from "@mui/icons-material/Close";
+import { Link, redirect, useNavigate } from "react-router-dom";
+import { userLogout } from "../../api/userApi";
+import { useEffect } from "react";
 
 const Header = () => {
   const [navbarOpen, setNavbarOpen] = useState(false);
+  const navigate = useNavigate();
+
+  const logMeOut = (e) => {
+    e.preventDefault();
+    sessionStorage.removeItem("accessJWT");
+    navigate("/");
+  };
+  useEffect(() => {
+    if (!sessionStorage.getItem("accessJWT")) {
+      navigate("/");
+    }
+  }, []);
   return (
     <>
       <nav className="relative flex flex-wrap items-center justify-between px-2 py-3 bg-sky-500 mb-3">
@@ -22,7 +36,7 @@ const Header = () => {
               type="button"
               onClick={() => setNavbarOpen(!navbarOpen)}
             >
-              {navbarOpen ? <CloseIcon/>: <MenuIcon />}
+              {navbarOpen ? <CloseIcon /> : <MenuIcon />}
             </button>
           </div>
           <div
@@ -36,7 +50,7 @@ const Header = () => {
               <li className="nav-item">
                 <Link
                   className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75"
-                  to='/dashboard'
+                  to="/dashboard"
                   onClick={() => setNavbarOpen(!navbarOpen)}
                 >
                   <span className="ml-2">Dashboard</span>
@@ -54,8 +68,7 @@ const Header = () => {
               <li className="nav-item">
                 <Link
                   className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75"
-                  to='/logout'
-                  onClick={() => setNavbarOpen(!navbarOpen)}
+                  onClick={logMeOut}
                 >
                   <span className="ml-2">Logout</span>
                 </Link>

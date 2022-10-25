@@ -42,7 +42,6 @@ const SigninForm = (props) => {
 
     try {
       const isAuth = await userSignin({ email, password });
-      console.log(isAuth);
       if (isAuth.status === "error") {
         return dispatch(signinFail(isAuth.message));
       }

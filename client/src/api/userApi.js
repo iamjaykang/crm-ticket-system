@@ -4,6 +4,7 @@ const rootUrl = "http://localhost:3080/v1/";
 
 const signinUrl = rootUrl + "user/login";
 const userProfileUrl = rootUrl + "user";
+const logoutUrl = rootUrl + "user/logout";
 
 export const userSignin = (formData) => {
   return new Promise(async (resolve, reject) => {
@@ -45,4 +46,16 @@ export const fetchUser = () => {
       reject(error.message);
     }
   });
+};
+
+export const userLogout = async () => {
+  try {
+    await axios.delete(logoutUrl, {
+      headers: {
+        Authorization: sessionStorage.getItem("accessJWT"),
+      },
+    });
+  } catch (error) {
+    console.log(error);
+  }
 };

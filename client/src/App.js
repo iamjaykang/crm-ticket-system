@@ -13,7 +13,6 @@ function App({ ...rest }) {
       <Router>
         <Routes>
           <Route exact path="/" element={<SignInPage />} />
-
           <Route
             exact
             path="/dashboard"
