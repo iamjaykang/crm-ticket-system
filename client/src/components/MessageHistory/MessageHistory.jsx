@@ -8,14 +8,14 @@ const MessageHistory = (props) => {
     <div
       key={i}
       className={
-        message.messageBy === "client"
+        message.sender === "client"
           ? "mt-5 flex flex-row justify-between text-base"
           : "mt-5 flex flex-row-reverse justify-between text-base"
       }
     >
       <div className="send">
-        <div className="font-bold text-start">{message.messageBy}</div>
-        <div className="date">{message.date}</div>
+        <div className="font-bold text-start">{message.sender}</div>
+        <div className="date">{message.msgAt}</div>
       </div>
       <div className="message w-4/5 border p-4">{message.message}</div>
     </div>
