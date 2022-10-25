@@ -1,6 +1,9 @@
 const express = require("express");
 const { userAuthorization } = require("../middlewares/authorization");
-const { createNewTicketValidation, replyTicketMessageValidation } = require("../middlewares/formValidation-middleware");
+const {
+  createNewTicketValidation,
+  replyTicketMessageValidation,
+} = require("../middlewares/formValidation-middleware");
 const {
   insertTicket,
   getTickets,
@@ -30,41 +33,46 @@ router.all("/", (req, res, next) => {
 // create url endpoints
 
 // Create new ticket router
-router.post("/", createNewTicketValidation,userAuthorization, async (req, res) => {
-  try {
-    const { subject, sender, message } = req.body;
+router.post(
+  "/",
+  createNewTicketValidation,
+  userAuthorization,
+  async (req, res) => {
+    try {
+      const { subject, sender, message } = req.body;
 
-    const userId = req.userId;
+      const userId = req.userId;
 
-    const ticketObj = {
-      clientId: userId,
-      subject,
-      conversations: [
-        {
-          sender,
-          message,
-        },
-      ],
-    };
+      const ticketObj = {
+        clientId: userId,
+        subject,
+        conversations: [
+          {
+            sender,
+            message,
+          },
+        ],
+      };
 
-    const result = await insertTicket(ticketObj);
-    if (result._id) {
-      return res.json({
-        status: "success",
-        message: "New Ticket has been created!",
+      const result = await insertTicket(ticketObj);
+      if (result._id) {
+        return res.json({
+          status: "success",
+          message: "New Ticket has been created!",
+        });
+      }
+      res.json({
+        status: "error",
+        message: "Unable to create the ticket, please try again later",
+      });
+    } catch (error) {
+      res.json({
+        status: "error",
+        message: error.message,
       });
     }
-    res.json({
-      status: "error",
-      message: "Unable to create the ticket, please try again later",
-    });
-  } catch (error) {
-    res.json({
-      status: "error",
-      message: error.message,
-    });
   }
-});
+);
 
 // Get all tickets router for a specific user
 router.get("/", userAuthorization, async (req, res) => {
@@ -73,17 +81,12 @@ router.get("/", userAuthorization, async (req, res) => {
 
     const result = await getTickets(clientId);
 
-    if (result.length) {
-      return res.json({
-        status: "success",
-        result,
-      });
-    }
-  } catch (error) {
-    res.json({
-      status: "error",
-      message: error.message,
+    return res.json({
+      status: "success",
+      result,
     });
+  } catch (error) {
+    res.json({ status: "error", message: error.message });
   }
 });
 
@@ -96,46 +99,46 @@ router.get("/:_id", userAuthorization, async (req, res) => {
 
     const result = await getTicketById(_id, clientId);
 
-    if (result.length) {
-      return res.json({
-        status: "success",
-        result,
-      });
-    }
-  } catch (error) {
-    res.json({
-      status: "error",
-      message: error.message,
+    return res.json({
+      status: "success",
+      result,
     });
+  } catch (error) {
+    res.json({ status: "error", message: error.message });
   }
 });
 
 // Update reply message from client
-router.put("/:_id", replyTicketMessageValidation,userAuthorization, async (req, res) => {
-  try {
-    const { message, sender } = req.body;
-    const { _id } = req.params;
-    const clientId = req.userId;
+router.put(
+  "/:_id",
+  replyTicketMessageValidation,
+  userAuthorization,
+  async (req, res) => {
+    try {
+      const { message, sender } = req.body;
+      const { _id } = req.params;
+      const clientId = req.userId;
 
-    const result = await updateClientReply({ _id, message, sender });
+      const result = await updateClientReply({ _id, message, sender });
 
-    if (result._id) {
-      return res.json({
-        status: "success",
-        message: "Your message has been updated",
+      if (result._id) {
+        return res.json({
+          status: "success",
+          message: "Your message has been updated",
+        });
+      }
+      res.json({
+        status: "error",
+        message: "Unable to update your message, please try again later",
+      });
+    } catch (error) {
+      res.json({
+        status: "error",
+        message: error.message,
       });
     }
-    res.json({
-      status: "error",
-      message: "Unable to update your message, please try again later",
-    });
-  } catch (error) {
-    res.json({
-      status: "error",
-      message: error.message,
-    });
   }
-});
+);
 
 // Update ticket status to close
 router.patch("/close-ticket/:_id", userAuthorization, async (req, res) => {

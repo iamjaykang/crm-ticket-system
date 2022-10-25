@@ -41,7 +41,6 @@ function App() {
             }
           />
           <Route
-            exact
             path="/ticket/:tId"
             element={
               <PrivateRoute>

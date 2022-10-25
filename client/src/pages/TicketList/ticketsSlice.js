@@ -30,6 +30,18 @@ const ticketListSlice = createSlice({
         return row.subject.toLowerCase().includes(action.payload.toLowerCase());
       });
     },
+    fetchSingleTicketLoading: (state) => {
+      state.isLoading = true;
+    },
+    fetchSingleTicketSuccess: (state, { payload }) => {
+      state.selectedTicket = payload;
+      state.isLoading = false;
+      state.error = "";
+    },
+    fetchSingleTicketFail: (state, { payload }) => {
+      state.isLoading = false;
+      state.error = payload;
+    },
   },
 });
 
@@ -40,6 +52,9 @@ export const {
   fetchTicketSuccess,
   fetchTicketFail,
   searchTickets,
+  fetchSingleTicketLoading,
+  fetchSingleTicketSuccess,
+  fetchSingleTicketFail,
 } = actions;
 
 export default reducer;

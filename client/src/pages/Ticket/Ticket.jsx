@@ -5,11 +5,17 @@ import MessageHistory from "../../components/MessageHistory/MessageHistory";
 import UpdateTicket from "../../components/UpdateTicket/UpdateTicket";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchSingleTicket } from "../TicketList/ticketsAction";
 
 // const ticket = tickets[0];
 
 const Ticket = () => {
-  const { tId } = useParams();
+  let { tId } = useParams();
+  console.log(tId);
+  const dispatch = useDispatch();
+  const { isLoading, error, selectedTicket, replyMsg, replyTicketError } =
+    useSelector((state) => state.tickets);
 
   const [message, setMessage] = useState("");
   const [ticket, setTicket] = useState("");
@@ -26,12 +32,7 @@ const Ticket = () => {
 
   //   if ticket id equals params id ticket is set to the ticket
   useEffect(() => {
-    for (let i = 0; i < tickets.length; i++) {
-      if (tickets[i].id == tId) {
-        setTicket(tickets[i]);
-        continue;
-      }
-    }
+    dispatch(fetchSingleTicket(tId));
   }, [message, tId]);
   return (
     <div className="container">
