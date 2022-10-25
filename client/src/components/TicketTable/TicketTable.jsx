@@ -3,7 +3,9 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 const TicketTable = () => {
-  const { searchTicketList, isLoading, error } = useSelector((state) => state.tickets);
+  const { searchTicketList, isLoading, error } = useSelector(
+    (state) => state.tickets
+  );
 
   if (isLoading) return <h3>Loading ...</h3>;
 
@@ -75,7 +77,9 @@ const TicketTable = () => {
                     <Link to={`/ticket/${row.id}`}>{row.subject}</Link>
                   </td>
                   <td className="py-4 px-6">{row.status}</td>
-                  <td className="py-4 px-6">{row.addedAt}</td>
+                  <td className="py-4 px-6">
+                    {row.openedAt && new Date(row.openedAt).toLocaleString()}
+                  </td>
                   <td className="flex items-center py-4 px-6 space-x-3">
                     <a
                       href="#"

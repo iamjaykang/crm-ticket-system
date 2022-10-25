@@ -5,8 +5,7 @@ import {filterSearchTicket} from '../../pages/TicketList/ticketsAction'
 const SearchForm = () => {
   const dispatch = useDispatch();
   const onChangeHandler = (e) => {
-    const { name, value } = e.target;
-    console.log(e.target.value);
+    const { value } = e.target;
     dispatch(filterSearchTicket(value));
   };
   return (

@@ -4,8 +4,8 @@ const { storeUserRefreshJWT } = require("../models/user/user-model");
 
 const createAccessJWT = async (email, _id) => {
   try {
-    const accessJWT = await jwt.sign({ email }, process.env.JWT_ACCESS_SECRET, {
-      expiresIn: "15m",
+    const accessJWT = jwt.sign({ email }, process.env.JWT_ACCESS_SECRET, {
+      expiresIn: process.env.ACCESS_JWT_EXPIRES_IN,
     });
 
     await setJWT(accessJWT, _id);
@@ -19,7 +19,7 @@ const createAccessJWT = async (email, _id) => {
 const createRefreshJWT = async (email, _id) => {
   try {
     const refreshJWT = jwt.sign({ email }, process.env.JWT_REFRESH_SECRET, {
-      expiresIn: "30d",
+      expiresIn: process.env.REFRESH_JWT_EXPIRES_IN,
     });
 
     await storeUserRefreshJWT(_id, refreshJWT);
