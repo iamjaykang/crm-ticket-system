@@ -42,13 +42,13 @@ const Ticket = () => {
       <div className="flex justify-between mt-4">
         <div className="text-lg">
           <div className="font-bold">
-            Subject: <span className="font-normal">{ticket.subject}</span>
+            Subject: <span className="font-normal">{selectedTicket.subject}</span>
           </div>
           <div className="font-bold">
-            Ticket Opened: <span className="font-normal">{ticket.addedAt}</span>
+            Ticket Opened: <span className="font-normal">{selectedTicket.openedAt}</span>
           </div>
           <div className="font-bold">
-            Status: <span className="font-normal">{ticket.status}</span>
+            Status: <span className="font-normal">{selectedTicket.status}</span>
           </div>
         </div>
         <div>

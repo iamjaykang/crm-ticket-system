@@ -5,6 +5,7 @@ const initialState = {
   isLoading: false,
   error: "",
   searchTicketList: [],
+  selectedTicket: {},
 };
 
 const ticketListSlice = createSlice({
