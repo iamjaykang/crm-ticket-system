@@ -124,6 +124,10 @@ router.post("/login", async (req, res) => {
   /// get user with email from db
 
   const user = await getUserByEmail(email);
+
+  if(!user.isVerified) {
+    return res.json({status: 'error', message: 'Your account has not been verified. Please verify your email before you login'})
+  }
   console.log(user);
 
   const passFromDb = user && user._id ? user.password : null;
