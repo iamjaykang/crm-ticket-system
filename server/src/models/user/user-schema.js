@@ -12,14 +12,6 @@ const UserSchema = new Schema({
     maxlength: 50,
     required: true,
   },
-  address: {
-    type: String,
-    maxlength: 50,
-  },
-  phone: {
-    type: Number,
-    maxlength: 11,
-  },
   email: {
     type: String,
     maxlength: 50,

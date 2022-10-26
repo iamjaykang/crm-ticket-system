@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import { userRegistration } from "./userRegistrationAction";
 
 const initialState = {
-  name: "",
-  email: "",
-  password: "",
-  confirmPass: "",
+  name: "test",
+  email: "test@test",
+  password: "Test1234",
+  confirmPass: "Test1234",
+  company: "Healthright",
 };
 
 const passVerification = {
@@ -16,8 +20,13 @@ const passVerification = {
 };
 
 const RegistrationForm = () => {
+  const dispatch = useDispatch();
   const [newUser, setNewUser] = useState(initialState);
   const [passwordError, setPasswordError] = useState(passVerification);
+
+  const { isLoading, status, message } = useSelector(
+    (state) => state.userRegistration
+  );
 
   const onChangeHandler = (e) => {
     const { name, value } = e.target;
@@ -50,6 +59,7 @@ const RegistrationForm = () => {
     e.preventDefault();
 
     console.log(newUser);
+    dispatch(userRegistration(newUser));
   };
 
   console.log(newUser);
@@ -63,7 +73,7 @@ const RegistrationForm = () => {
         <form autoComplete="Off" onSubmit={onSubmitHandler}>
           <div className="my-4">
             <label
-              className="block text-grey-darker text-sm font-bold mb-2"
+              className="block text-grey-darker text-base font-bold mb-2"
               htmlFor="email"
             >
               Email Address
@@ -80,7 +90,7 @@ const RegistrationForm = () => {
           </div>
           <div className="my-4">
             <label
-              className="block text-grey-darker text-sm font-bold mb-2"
+              className="block text-grey-darker text-base font-bold mb-2"
               htmlFor="name"
             >
               Full Name
@@ -97,7 +107,24 @@ const RegistrationForm = () => {
           </div>
           <div className="my-4">
             <label
-              className="block text-grey-darker text-sm font-bold mb-2"
+              className="block text-grey-darker text-base font-bold mb-2"
+              htmlFor="name"
+            >
+              Company
+            </label>
+            <input
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker"
+              type="text"
+              value={newUser.company}
+              onChange={onChangeHandler}
+              name="company"
+              placeholder="Your company"
+              required
+            />
+          </div>
+          <div className="my-4">
+            <label
+              className="block text-grey-darker text-base font-bold mb-2"
               htmlFor="password"
             >
               Password
@@ -114,7 +141,7 @@ const RegistrationForm = () => {
           </div>
           <div className="my-4">
             <label
-              className="block text-grey-darker text-sm font-bold mb-2"
+              className="block text-grey-darker text-base font-bold mb-2"
               htmlFor="password"
             >
               Confirm Password
@@ -129,35 +156,45 @@ const RegistrationForm = () => {
               required
             />
             {!passwordError.confirmPass && (
-              <div className="text-red-600">Password doesn't match!</div>
+              <div className="text-red-600 text-base">
+                Password doesn't match!
+              </div>
             )}
           </div>
           <div className="mb-6 text-left">
             <ul>
               <li
                 className={
-                  passwordError.isLengthy ? "text-green-600" : "text-red-600"
+                  passwordError.isLengthy
+                    ? "text-green-600 text-base"
+                    : "text-red-600 text-base"
                 }
               >
                 • Min 8 characters
               </li>
               <li
                 className={
-                  passwordError.hasUpper ? "text-green-600" : "text-red-600"
+                  passwordError.hasUpper
+                    ? "text-green-600 text-base"
+                    : "text-red-600 text-base"
                 }
               >
                 • At least one upper case
               </li>
               <li
                 className={
-                  passwordError.hasLower ? "text-green-600" : "text-red-600"
+                  passwordError.hasLower
+                    ? "text-green-600 text-base"
+                    : "text-red-600 text-base"
                 }
               >
                 • At least one lower case
               </li>
               <li
                 className={
-                  passwordError.hasNumber ? "text-green-600" : "text-red-600"
+                  passwordError.hasNumber
+                    ? "text-green-600 text-base"
+                    : "text-red-600 text-base"
                 }
               >
                 • At least one one number
@@ -166,18 +203,35 @@ const RegistrationForm = () => {
           </div>
           <div className="flex items-center justify-between">
             <button
-              className="bg-blue-400 hover:bg-blue-dark text-white font-bold py-2 px-4 rounded"
+              className="bg-blue-400 w-full hover:bg-blue-dark text-white font-bold py-2 px-4 rounded"
               type="submit"
               disabled={Object.values(passwordError).includes(false)}
             >
-              Submit
+              Create an account
             </button>
-            <a
-              className="inline-block align-baseline font-bold text-sm text-blue hover:text-blue-darker cursor-pointer"
-              href="#"
+          </div>
+          {message !=
+          ("this email is already registered" ||
+            "Unable to create a new account at the moment, please try again later") ? (
+            <div
+              className="p-4 my-4 text-sm text-green-700 bg-green-100 rounded-lg dark:bg-greeen-200 dark:text-green-800"
+              role="alert"
             >
-              Sign in now instead
-            </a>
+              {message}
+            </div>
+          ) : (
+            <div
+              className="p-4 my-4 text-sm text-red-700 bg-red-100 rounded-lg dark:bg-red-200 dark:text-red-800"
+              role="alert"
+            >
+              {message}
+            </div>
+          )}
+          <div className="inline-block align-baseline font-bold text-base text-blue hover:text-blue-darker cursor-pointer mt-4">
+            Already have an account?
+            <Link to="/" className="mx-2 text-base text-blue-400 underline">
+              Sign in instead
+            </Link>
           </div>
         </form>
       </div>

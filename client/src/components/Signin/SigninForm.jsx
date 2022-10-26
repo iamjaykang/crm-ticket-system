@@ -101,7 +101,7 @@ const SigninForm = (props) => {
               value={password}
               onChange={onChangeHandler}
               type="password"
-              placeholder="******************"
+              placeholder="••••••••"
               required
             />
           </div>
@@ -133,16 +133,15 @@ const SigninForm = (props) => {
                 <span className="sr-only">Loading...</span>
               </div>
             )}
-            <a
+            <Link
               className="inline-block align-baseline font-bold text-sm text-blue hover:text-blue-darker cursor-pointer"
-              href="#"
               onClick={() => formSwitcher("reset")}
             >
               Forgot Password?
-            </a>
+            </Link>
           </div>
-          <div className="mt-5">
-            Are you new here? <Link to="/registration">Register Now</Link>
+          <div className="inline-block align-baseline font-bold text-base text-blue hover:text-blue-darker cursor-pointer mt-4">
+            Are you new here? <Link to="/registration" className="mx-2 text-base text-blue-400 underline">Register Now</Link>
           </div>
         </form>
       </div>

@@ -1,5 +1,4 @@
 import { updateReplyTicket } from "../../api/ticketApi";
-import { fetchUser } from "../../api/userApi";
 import { fetchSingleTicket } from "../../pages/TicketList/ticketsAction";
 import {
   replyTicketLoading,
