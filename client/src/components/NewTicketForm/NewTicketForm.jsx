@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getUserProfile } from "../../pages/Dashboard/userAction";
 import { shortText } from "../../utils/validation";
 import { openNewTicket } from "./newTicketAction";
+import { resetSuccessMsg } from "./newTicketSlice";
 
 const initialFormData = {
   subject: "",
@@ -52,7 +53,12 @@ const NewTicketForm = () => {
   };
 
   useEffect(() => {
-    dispatch(getUserProfile());
+    if (!name) {
+      dispatch(getUserProfile());
+    }
+    return ()=>{
+      successMsg && dispatch(resetSuccessMsg())
+    }
   }, [dispatch, formData, formDataError]);
   return (
     <div>

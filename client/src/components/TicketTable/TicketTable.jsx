@@ -10,7 +10,6 @@ const TicketTable = () => {
   if (isLoading) return <h3>Loading ...</h3>;
 
   if (error) return <h3>{error}</h3>;
-  console.log(searchTicketList);
   return (
     <div>
       <div className="overflow-x-auto relative shadow-xl sm:rounded-lg">

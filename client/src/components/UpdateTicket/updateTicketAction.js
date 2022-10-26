@@ -1,4 +1,5 @@
 import { updateReplyTicket } from "../../api/ticketApi";
+import { fetchUser } from "../../api/userApi";
 import { fetchSingleTicket } from "../../pages/TicketList/ticketsAction";
 import {
   replyTicketLoading,
@@ -14,7 +15,6 @@ export const replyOnTicket = (_id, msgObj) => async (dispatch) => {
     if (result.status === "error") {
       return dispatch(replyTicketFail(result.message));
     }
-
     dispatch(fetchSingleTicket(_id));
     dispatch(replyTicketSuccess(result.message));
   } catch (error) {

@@ -7,20 +7,25 @@ import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { closeTicket, fetchSingleTicket } from "../TicketList/ticketsAction";
 import { getUserProfile } from "../Dashboard/userAction";
+import { resetStatusReplyMsg } from "../TicketList/ticketsSlice";
 
 // const ticket = tickets[0];
 
 const Ticket = () => {
   let { tId } = useParams();
-  console.log(tId);
   const dispatch = useDispatch();
-  const { isLoading, error, selectedTicket, statusReplyMsg } =
-    useSelector((state) => state.tickets);
+  const { isLoading, error, selectedTicket, statusReplyMsg } = useSelector(
+    (state) => state.tickets
+  );
+  const {
+    user: { _id },
+  } = useSelector((state) => state.user);
 
   //   if ticket id equals params id ticket is set to the ticket
   useEffect(() => {
     dispatch(fetchSingleTicket(tId));
-    dispatch(getUserProfile());
+    !_id && dispatch(getUserProfile());
+    statusReplyMsg && dispatch(resetStatusReplyMsg());
   }, [tId, dispatch]);
   return (
     <div className="container">

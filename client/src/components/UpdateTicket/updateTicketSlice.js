@@ -19,8 +19,13 @@ const updateTicketSlice = createSlice({
       state.replyMsg = payload;
     },
     replyTicketFail: (state, { payload }) => {
-      state.isLoading = false;
+      state.isLoading = true;
       state.replyTicketError = payload;
+    },
+    resetResponseMsg: (state) => {
+      state.isLoading = false;
+      state.replyMsg = '';
+      state.replyTicketError = '';
     },
   },
 });
@@ -31,6 +36,7 @@ export const {
   replyTicketFail,
   replyTicketLoading,
   replyTicketSuccess,
+  resetResponseMsg
 } = actions;
 
 export default reducer;

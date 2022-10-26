@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { replyOnTicket } from "./updateTicketAction";
+import { resetResponseMsg } from "./updateTicketSlice";
 
 const UpdateTicket = ({ _id }) => {
   const dispatch = useDispatch();
@@ -25,7 +26,9 @@ const UpdateTicket = ({ _id }) => {
     dispatch(replyOnTicket(_id, msgObj));
     setMessage("");
   };
-
+  useEffect(() => {
+    (replyMsg || replyTicketError) && dispatch(resetResponseMsg());
+  }, [dispatch]);
   return (
     <div className="text-base">
       <form onSubmit={onSubmitHandler}>
