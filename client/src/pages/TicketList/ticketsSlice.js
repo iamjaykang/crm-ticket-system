@@ -6,6 +6,7 @@ const initialState = {
   error: "",
   searchTicketList: [],
   selectedTicket: {},
+  statusReplyMsg: "",
 };
 
 const ticketListSlice = createSlice({
@@ -15,20 +16,20 @@ const ticketListSlice = createSlice({
     fetchTicketLoading: (state, action) => {
       state.isLoading = true;
     },
-    fetchTicketSuccess: (state, action) => {
-      state.tickets = action.payload;
-      state.searchTicketList = action.payload;
+    fetchTicketSuccess: (state, {payload}) => {
+      state.tickets = payload;
+      state.searchTicketList = payload;
       state.isLoading = false;
     },
-    fetchTicketFail: (state, action) => {
+    fetchTicketFail: (state, {payload}) => {
       state.isLoading = false;
-      state.error = action.payload;
+      state.error = payload;
     },
-    searchTickets: (state, action) => {
+    searchTickets: (state, {payload}) => {
       state.searchTicketList = state.tickets.filter((row) => {
-        if (!action.payload) return row;
+        if (!payload) return row;
 
-        return row.subject.toLowerCase().includes(action.payload.toLowerCase());
+        return row.subject.toLowerCase().includes(payload.toLowerCase());
       });
     },
     fetchSingleTicketLoading: (state) => {
@@ -40,6 +41,18 @@ const ticketListSlice = createSlice({
       state.error = "";
     },
     fetchSingleTicketFail: (state, { payload }) => {
+      state.isLoading = false;
+      state.error = payload;
+    },
+    closeTicketLoading: (state) => {
+      state.isLoading = true;
+    },
+    closeTicketSuccess: (state, { payload }) => {
+      state.isLoading = false;
+      state.error = "";
+      state.statusReplyMsg = payload;
+    },
+    closeTicketFail: (state, { payload }) => {
       state.isLoading = false;
       state.error = payload;
     },
@@ -56,6 +69,9 @@ export const {
   fetchSingleTicketLoading,
   fetchSingleTicketSuccess,
   fetchSingleTicketFail,
+  closeTicketFail,
+  closeTicketLoading,
+  closeTicketSuccess,
 } = actions;
 
 export default reducer;

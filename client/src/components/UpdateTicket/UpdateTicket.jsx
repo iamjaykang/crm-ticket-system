@@ -7,7 +7,9 @@ const UpdateTicket = ({ _id }) => {
   const {
     user: { name },
   } = useSelector((state) => state.user);
-  const { replyMsg } = useSelector((state) => state.replyTicket);
+  const { replyMsg, replyTicketError } = useSelector(
+    (state) => state.replyTicket
+  );
   const [message, setMessage] = useState("");
 
   const onChangeHandler = (e) => {
@@ -26,18 +28,26 @@ const UpdateTicket = ({ _id }) => {
 
   return (
     <div className="text-base">
-      {replyMsg && (
-        <div
-          className="p-4 mb-4 text-sm text-red-700 bg-red-100 rounded-lg dark:bg-red-200 dark:text-red-800"
-          role="alert"
-        >
-          {replyMsg}
-        </div>
-      )}
       <form onSubmit={onSubmitHandler}>
         <label htmlFor="detail" className="font-bold text-lg">
           Reply
         </label>
+        {replyMsg && (
+          <div
+            className="p-4 my-4 text-sm text-green-700 bg-green-100 rounded-lg dark:bg-greeen-200 dark:text-green-800"
+            role="alert"
+          >
+            {replyMsg}
+          </div>
+        )}
+        {replyTicketError && (
+          <div
+            className="p-4 my-4 text-sm text-red-700 bg-red-100 rounded-lg dark:bg-red-200 dark:text-red-800"
+            role="alert"
+          >
+            {replyTicketError}
+          </div>
+        )}
         <textarea
           className="shadow appearance-none border border-red rounded w-full py-2 px-3 text-grey-darker my-3"
           name="detail"

@@ -2,8 +2,8 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   isLoading: false,
-  error: "",
-  replyMsg: '',
+  replyTicketError: "",
+  replyMsg: "",
 };
 
 const updateTicketSlice = createSlice({
@@ -13,21 +13,24 @@ const updateTicketSlice = createSlice({
     replyTicketLoading: (state) => {
       state.isLoading = true;
     },
-    replyTicketSuccess: (state, {payload}) => {
+    replyTicketSuccess: (state, { payload }) => {
       state.isLoading = false;
-      state.error = "";
+      state.replyTicketError = "";
       state.replyMsg = payload;
     },
     replyTicketFail: (state, { payload }) => {
       state.isLoading = false;
-      state.error = payload;
+      state.replyTicketError = payload;
     },
   },
 });
 
 const { reducer, actions } = updateTicketSlice;
 
-export const { replyTicketFail, replyTicketLoading, replyTicketSuccess } =
-  actions;
+export const {
+  replyTicketFail,
+  replyTicketLoading,
+  replyTicketSuccess,
+} = actions;
 
 export default reducer;

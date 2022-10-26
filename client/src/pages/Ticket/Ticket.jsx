@@ -1,12 +1,11 @@
 import React, { useState } from "react";
 import BreadCrumb from "../../components/BreadCrumb/BreadCrumb";
-import tickets from "../../assets/data/dummyTicket.json";
 import MessageHistory from "../../components/MessageHistory/MessageHistory";
 import UpdateTicket from "../../components/UpdateTicket/UpdateTicket";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchSingleTicket } from "../TicketList/ticketsAction";
+import { closeTicket, fetchSingleTicket } from "../TicketList/ticketsAction";
 import { getUserProfile } from "../Dashboard/userAction";
 
 // const ticket = tickets[0];
@@ -15,18 +14,14 @@ const Ticket = () => {
   let { tId } = useParams();
   console.log(tId);
   const dispatch = useDispatch();
-  const { isLoading, error, selectedTicket, replyTicketError } = useSelector(
-    (state) => state.tickets
-  );
-  const { replyMsg } = useSelector((state) => state.replyTicket);
-
-  const [message, setMessage] = useState("");
+  const { isLoading, error, selectedTicket, statusReplyMsg } =
+    useSelector((state) => state.tickets);
 
   //   if ticket id equals params id ticket is set to the ticket
   useEffect(() => {
     dispatch(fetchSingleTicket(tId));
     dispatch(getUserProfile());
-  }, [message, tId, dispatch]);
+  }, [tId, dispatch]);
   return (
     <div className="container">
       <div>
@@ -39,6 +34,14 @@ const Ticket = () => {
             role="alert"
           >
             {error}
+          </div>
+        )}
+        {statusReplyMsg && (
+          <div
+            className="p-4 mb-4 text-sm text-green-700 bg-green-100 rounded-lg dark:bg-green-200 dark:text-green-800"
+            role="success"
+          >
+            {statusReplyMsg}
           </div>
         )}
         {isLoading && (
@@ -84,6 +87,8 @@ const Ticket = () => {
           <button
             type="button"
             className="py-2.5 px-5 mr-2 mb-2 text-sm font-medium text-cyan-600 focus:outline-none bg-white rounded-lg border border-cyan-600 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+            onClick={() => dispatch(closeTicket(tId))}
+            disabled={selectedTicket.status === "Closed"}
           >
             Close Ticket
           </button>
