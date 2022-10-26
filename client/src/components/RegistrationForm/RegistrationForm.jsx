@@ -58,11 +58,8 @@ const RegistrationForm = () => {
   const onSubmitHandler = (e) => {
     e.preventDefault();
 
-    console.log(newUser);
     dispatch(userRegistration(newUser));
   };
-
-  console.log(newUser);
 
   useEffect(() => {}, [newUser]);
 
@@ -210,23 +207,24 @@ const RegistrationForm = () => {
               Create an account
             </button>
           </div>
-          {message !=
-          ("this email is already registered" ||
-            "Unable to create a new account at the moment, please try again later") ? (
-            <div
-              className="p-4 my-4 text-sm text-green-700 bg-green-100 rounded-lg dark:bg-greeen-200 dark:text-green-800"
-              role="alert"
-            >
-              {message}
-            </div>
-          ) : (
-            <div
-              className="p-4 my-4 text-sm text-red-700 bg-red-100 rounded-lg dark:bg-red-200 dark:text-red-800"
-              role="alert"
-            >
-              {message}
-            </div>
-          )}
+          {message &&
+            (message !=
+            ("this email is already registered" ||
+              "Unable to create a new account at the moment, please try again later") ? (
+              <div
+                className="p-4 my-4 text-sm text-green-700 bg-green-100 rounded-lg dark:bg-greeen-200 dark:text-green-800"
+                role="alert"
+              >
+                {message}
+              </div>
+            ) : (
+              <div
+                className="p-4 my-4 text-sm text-red-700 bg-red-100 rounded-lg dark:bg-red-200 dark:text-red-800"
+                role="alert"
+              >
+                {message}
+              </div>
+            ))}
           <div className="inline-block align-baseline font-bold text-base text-blue hover:text-blue-darker cursor-pointer mt-4">
             Already have an account?
             <Link to="/" className="mx-2 text-base text-blue-400 underline">

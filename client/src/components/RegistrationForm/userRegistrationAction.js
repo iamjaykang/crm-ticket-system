@@ -10,7 +10,6 @@ export const userRegistration = (formData) => async (dispatch) => {
   try {
     //api
     const result = await userRegistrationApi(formData);
-    console.log(result);
     //feedback
     //updates redux store
     result.status === "success"
