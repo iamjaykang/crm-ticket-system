@@ -13,6 +13,8 @@ const pin = Joi.string().min(6).max(6).required();
 
 const newPassword = Joi.string().alphanum().min(3).max(30).required();
 
+const currentDate = Joi.date();
+
 const resetPassReqValidation = (req, res, next) => {
   const schema = Joi.object({ email });
 
@@ -40,6 +42,7 @@ const createNewTicketValidation = (req, res, next) => {
     subject: shortStr.required(),
     sender: shortStr.required(),
     message: longStr.required(),
+    issueDate: currentDate.required(),
   });
 
   const value = schema.validate(req.body);
