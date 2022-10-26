@@ -2,16 +2,17 @@ import React, { useState } from "react";
 import logo from "../../assets/images/logo.png";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { LinkContainer } from "react-router-bootstrap";
 import { userLogout } from "../../api/userApi";
 
 const Header = () => {
   const [navbarOpen, setNavbarOpen] = useState(false);
+  const navigate = useNavigate();
   const logMeOut = () => {
-    sessionStorage.removeItem("accessJWT");
-    localStorage.removeItem("crmSite");
     userLogout();
+    localStorage.removeItem("crmSite");
+    sessionStorage.removeItem("accessJWT");
   };
   return (
     <>
