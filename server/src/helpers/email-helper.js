@@ -31,7 +31,7 @@ const sendEmail = (info) => {
   });
 };
 
-const emailProcessor = ({email, pin, type}) => {
+const emailProcessor = ({ email, pin, type, verificationLink = "" }) => {
   let info = "";
   switch (type) {
     case "request-new-password":
@@ -58,6 +58,23 @@ const emailProcessor = ({email, pin, type}) => {
         text: `Your password has been update successfully!`, // plain text body
         html: `<b>Hello</b>
         <p>Your password has been update successfully!</p>`, // html body
+      };
+
+      sendEmail(info);
+
+      break;
+
+    case "new-user-confirmation-required":
+      info = {
+        from: '"CRM Company" <benton.schmitt98@ethereal.email>', // sender address
+        to: email, // list of receivers
+        subject: "Please verify your account", // Subject line
+        text: `Please follow the link to verify your account`, // plain text body
+        html: `<b>Hello</b>
+        <p>Please follow the link to verify your account</p>
+        <p>${verificationLink}</p>
+        
+        `, // html body
       };
 
       sendEmail(info);

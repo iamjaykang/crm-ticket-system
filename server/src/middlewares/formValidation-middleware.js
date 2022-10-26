@@ -67,9 +67,26 @@ const replyTicketMessageValidation = (req, res, next) => {
   next();
 };
 
+const newUserValidation = (req, res, next) => {
+  const schema = Joi.object({
+    name: shortStr.required(),
+    company: shortStr.required(),
+    email: email.required(),
+    password: newPassword.required(),
+  });
+
+  const value = schema.validate(req.body);
+
+  if (value.error) {
+    return res.json({ status: "error", message: value.error.message });
+  }
+  next();
+};
+
 module.exports = {
   resetPassReqValidation,
   updatePassValidation,
   createNewTicketValidation,
-  replyTicketMessageValidation
+  replyTicketMessageValidation,
+  newUserValidation,
 };

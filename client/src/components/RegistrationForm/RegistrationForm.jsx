@@ -58,7 +58,18 @@ const RegistrationForm = () => {
   const onSubmitHandler = (e) => {
     e.preventDefault();
 
-    dispatch(userRegistration(newUser));
+    const { name, phone, email, company, address, password } = newUser;
+
+    const newRegistration = {
+      name,
+      phone,
+      email,
+      company,
+      address,
+      password,
+    };
+
+    dispatch(userRegistration(newRegistration));
   };
 
   useEffect(() => {}, [newUser]);

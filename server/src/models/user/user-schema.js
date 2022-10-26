@@ -35,6 +35,11 @@ const UserSchema = new Schema({
       default: Date.now(),
     },
   },
+  isVerified: {
+    type: Boolean,
+    required: true,
+    default: false,
+  },
 });
 
 //mongoose will automatically enter collection as users when 'User' is put

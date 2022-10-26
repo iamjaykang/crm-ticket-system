@@ -8,6 +8,7 @@ const { userAuthorization } = require("../middlewares/authorization");
 const {
   resetPassReqValidation,
   updatePassValidation,
+  newUserValidation,
 } = require("../middlewares/formValidation-middleware");
 const {
   setPasswordResetPin,
@@ -47,7 +48,7 @@ router.get("/", userAuthorization, async (req, res) => {
 });
 
 // Create new user router
-router.post("/", async (req, res) => {
+router.post("/", newUserValidation, async (req, res) => {
   const { name, company, email, password } = req.body;
   try {
     // hash password
@@ -63,12 +64,18 @@ router.post("/", async (req, res) => {
     const result = await insertUser(newUserObj);
     console.log(result);
 
-    res.json({ status: 'success', message: "New user created", result });
+    await emailProcessor({
+      email: email,
+      type: "new-user-confirmation-required",
+      verificationLink: "http://localhost:3000/verification/" + result._id,
+    });
+    res.json({ status: "success", message: "New user created", result });
   } catch (error) {
     console.log(error);
-    let message = 'Unable to create a new account at the moment, please try again later'
-    if(error.message.includes('duplicate key error collection')) {
-      message = 'this email is already registered'
+    let message =
+      "Unable to create a new account at the moment, please try again later";
+    if (error.message.includes("duplicate key error collection")) {
+      message = "this email is already registered";
     }
     res.json({ status: "error", message });
   }
