@@ -5,18 +5,6 @@ import SigninForm from "../../components/Signin/SigninForm";
 const SignInPage = () => {
   const [formLoad, setFormLoad] = useState("login");
 
-
-
-  // const onResetSubmitHandler = (e) => {
-  //   e.preventDefault();
-
-  //   if (!email) {
-  //     return alert("Fill up all the required fields");
-  //   }
-
-  //   //TODO call api to submit the form
-  // };
-
   const formSwitcher = (formType) => {
     setFormLoad(formType);
   };

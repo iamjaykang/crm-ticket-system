@@ -4,6 +4,7 @@ import { signinPending, signinSuccess, signinFail } from "./signInSlice";
 import { userSignin } from "../../api/userApi";
 import { useNavigate } from "react-router-dom";
 import { getUserProfile } from "../../pages/Dashboard/userAction";
+import { Link } from "react-router-dom";
 
 const SigninForm = (props) => {
   const dispatch = useDispatch();
@@ -139,6 +140,9 @@ const SigninForm = (props) => {
             >
               Forgot Password?
             </a>
+          </div>
+          <div className="mt-5">
+            Are you new here? <Link to="/registration">Register Now</Link>
           </div>
         </form>
       </div>
