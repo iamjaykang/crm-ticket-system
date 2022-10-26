@@ -3,7 +3,6 @@ import {
   openNewTicketPending,
   openNewTicketSuccess,
   openNewTicketFail,
-  resetSuccessMsg
 } from "./newTicketSlice";
 
 export const openNewTicket = (formData) => (dispatch) => {

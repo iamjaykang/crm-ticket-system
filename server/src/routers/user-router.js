@@ -22,11 +22,38 @@ const {
   getUserById,
   updatePassword,
   storeUserRefreshJWT,
+  verifyUser,
 } = require("../models/user/user-model");
 
 router.all("/", (req, res, next) => {
   //   res.json({ message: "return from user router" });
   next();
+});
+
+//Verify user after sign up
+router.patch("/verify", async (req, res) => {
+  try {
+    //this data is coming from database
+    const { _id, email } = req.body;
+    //update our user database
+    const result = await verifyUser(_id, email);
+
+    if (result && result._id) {
+      return res.json({
+        status: "success",
+        message: "Your account has been activated, you may sign in now.",
+      });
+    }
+    return res.json({
+      status: "error",
+      message: "Invalid request!",
+    });
+  } catch (error) {
+    return res.json({
+      status: "error",
+      message: error.message,
+    });
+  }
 });
 
 //Get user profile router
@@ -67,7 +94,8 @@ router.post("/", newUserValidation, async (req, res) => {
     await emailProcessor({
       email: email,
       type: "new-user-confirmation-required",
-      verificationLink: "http://localhost:3000/verification/" + result._id,
+      verificationLink:
+        "http://localhost:3000/verification/" + result._id + `/${email}`,
     });
     res.json({ status: "success", message: "New user created", result });
   } catch (error) {
