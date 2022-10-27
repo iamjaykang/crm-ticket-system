@@ -7,9 +7,11 @@ import userReducer from './pages/Dashboard/userSlice';
 import newTicketReducer from './components/NewTicketForm/newTicketSlice';
 import userRegistrationReducer from './components/RegistrationForm/userRegistrationSlice';
 import userVerificationReducer from './components/UserVerification/userVerificationSlice'
+import passwordResetReducer from './components/PasswordResetForm/passwordResetSlice'
 
 const store = configureStore({
     reducer: {
+        password: passwordResetReducer,
         userVerification: userVerificationReducer,
         userRegistration: userRegistrationReducer,
         openTicket: newTicketReducer,

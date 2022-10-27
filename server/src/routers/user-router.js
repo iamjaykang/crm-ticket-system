@@ -125,8 +125,12 @@ router.post("/login", async (req, res) => {
 
   const user = await getUserByEmail(email);
 
-  if(!user.isVerified) {
-    return res.json({status: 'error', message: 'Your account has not been verified. Please verify your email before you login'})
+  if (!user.isVerified) {
+    return res.json({
+      status: "error",
+      message:
+        "Your account has not been verified. Please verify your email before you login",
+    });
   }
   console.log(user);
 
@@ -177,16 +181,10 @@ router.post("/reset-password", resetPassReqValidation, async (req, res) => {
       pin: setPin.pin,
       type: "request-new-password",
     });
-
-    return res.json({
-      status: "success!",
-      message:
-        "If your account exists, the password reset pin will be sent shortly",
-    });
   }
 
-  res.json({
-    status: "Error",
+  return res.json({
+    status: "success!",
     message:
       "If your account exists, the password reset pin will be sent shortly",
   });
@@ -202,6 +200,7 @@ router.post("/reset-password", resetPassReqValidation, async (req, res) => {
 // C. Server side form validation
 // 1. middleware to validate form data
 
+//update password router
 router.patch("/reset-password", updatePassValidation, async (req, res) => {
   const { email, pin, newPassword } = req.body;
 

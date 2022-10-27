@@ -13,8 +13,6 @@ export const userRegistrationApi = (formData) => {
     try {
       const res = await axios.post(userProfileUrl, formData);
 
-      resolve(res.data);
-
       if (res.data.status === "success") {
         resolve(res.data);
       }
@@ -30,11 +28,6 @@ export const userVerificationApi = (formData) => {
       const res = await axios.patch(userVerificationUrl, formData);
 
       resolve(res.data);
-      console.log(res.data);
-
-      if (res.data.status === "success") {
-        resolve(res.data);
-      }
     } catch (error) {
       reject(error);
     }

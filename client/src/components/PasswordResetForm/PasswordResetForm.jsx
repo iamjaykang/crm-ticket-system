@@ -1,11 +1,32 @@
-import React from "react";
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import Spinner from "../Spinner/Spinner";
+import { resetPassword } from "./passwordResetAction";
 
-const PasswordResetForm = (props) => {
-  const { email, onChangeHandler, onResetSubmitHandler, formSwitcher } = props;
+const PasswordResetForm = () => {
+  const dispatch = useDispatch();
+  const [email, setEmail] = useState("");
+
+  const { isLoading, status, message } = useSelector((state) => state.password);
+
+  const onResetSubmitHandler = (e) => {
+    e.preventDefault();
+
+    dispatch(resetPassword(email));
+  };
+
+  const onChangeHandler = (e) => {
+    const { value } = e.target;
+
+    setEmail(value);
+  };
   return (
     <div>
       <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 flex flex-col">
         <h1 className="font-bold border-b text-2xl p-2">Reset Password</h1>
+        {message && <div>{message}</div>}
+        {isLoading && <Spinner />}
         <form autoComplete="Off" onSubmit={onResetSubmitHandler}>
           <div className="my-4">
             <label
@@ -19,8 +40,8 @@ const PasswordResetForm = (props) => {
               type="email"
               name="email"
               value={email}
-              placeholder="Email"
               onChange={onChangeHandler}
+              placeholder="Email"
               required
             />
           </div>
@@ -32,13 +53,12 @@ const PasswordResetForm = (props) => {
             >
               Reset Password
             </button>
-            <a
+            <Link
               className="inline-block align-baseline font-bold text-sm text-blue hover:text-blue-darker cursor-pointer"
-              href="#"
-              onClick={() => formSwitcher("login")}
+              to="/"
             >
               Sign in now instead
-            </a>
+            </Link>
           </div>
         </form>
       </div>

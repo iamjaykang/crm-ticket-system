@@ -10,11 +10,13 @@ export const userVerification = (formData) => async (dispatch) => {
   try {
     //api
     const result = await userVerificationApi(formData);
+    console.log(result);
     //feedback
     //updates redux store
-    result.status === "success"
-      ? dispatch(verificationSuccess(result.message))
-      : dispatch(verificationFail(result.message));
+    if (result.status === "success") {
+      return dispatch(verificationSuccess(result.message));
+    }
+    dispatch(verificationFail(result.message));
   } catch (error) {
     dispatch(verificationFail(error.message));
   }
