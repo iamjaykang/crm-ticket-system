@@ -14,7 +14,7 @@ const TicketList = () => {
     dispatch(fetchAllTickets());
   }, [dispatch]);
   return (
-    <div className="container">
+    <div className="container my-4">
       <div className="mb-8">
         <BreadCrumb page="Ticket List" />
       </div>

@@ -17,7 +17,7 @@ const UserVerification = () => {
   return (
     <>
       <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 flex flex-col">
-        <h1 className="font-bold border-b text-2xl p-2">User Registration</h1>
+        <h1 className="font-bold border-b text-3xl p-2">User Registration</h1>
         {status === "success" && (
           <div
             className="p-4 my-4 text-sm text-green-700 bg-green-100 rounded-lg dark:bg-greeen-200 dark:text-green-800"

@@ -80,11 +80,11 @@ const UpdatePasswordForm = () => {
   return (
     <>
       <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 flex flex-col">
-        <h1 className="font-bold border-b text-2xl p-2">Reset Password</h1>
+        <h1 className="font-bold border-b text-3xl p-2">Reset Password</h1>
         <form autoComplete="Off" onSubmit={onSubmitHandler}>
           <div className="my-4">
             <label
-              className="block text-grey-darker text-base font-bold mb-2"
+              className="block text-grey-darker font-bold mb-2"
               htmlFor="password"
             >
               Password
@@ -101,7 +101,7 @@ const UpdatePasswordForm = () => {
           </div>
           <div className="my-4">
             <label
-              className="block text-grey-darker text-base font-bold mb-2"
+              className="block text-grey-darker font-bold mb-2"
               htmlFor="password"
             >
               Confirm Password
@@ -167,7 +167,7 @@ const UpdatePasswordForm = () => {
               type="submit"
               disabled={Object.values(passwordError).includes(false)}
             >
-              Create an account
+              Change password
             </button>
           </div>
           {/* {message &&
@@ -188,9 +188,9 @@ const UpdatePasswordForm = () => {
                 {message}
               </div>
             ))} */}
-          <div className="inline-block align-baseline font-bold text-base text-blue hover:text-blue-darker cursor-pointer mt-4">
+          <div className="inline-block align-baseline font-bold text-blue hover:text-blue-darker cursor-pointer mt-4">
             Already have an account?
-            <Link to="/" className="mx-2 text-base text-blue-400 underline">
+            <Link to="/" className="mx-2 text-blue-400 underline">
               Sign in instead
             </Link>
           </div>

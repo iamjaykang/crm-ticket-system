@@ -22,21 +22,26 @@ const Dashboard = () => {
       <div className="mb-6">
         <BreadCrumb page="Dashboard" />
       </div>
-      <div className="">
+      <div className=""></div>
+      <div>
+        <div className="text-black text-xl dark:text-gray-400">
+          Total tickets: {totlatTickets}
+        </div>
+        <div className="text-black text-xl dark:text-gray-400">
+          Pending tickets: {pendingTickets.length}
+        </div>
+      </div>
+      <div className="flex justify-between mt-4">
+        <div className="mt-2 dark:text-gray-200">Recently Added tickets</div>{" "}
         <Link to="/new-ticket">
           <button
             type="button"
-            className="text-white bg-cyan-500 hover:bg-cyan-600 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+            className="text-white bg-cyan-500 hover:bg-cyan-600 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-700 dark:hover:bg-blue-600 focus:outline-none dark:focus:ring-blue-800"
           >
             Add new ticket
           </button>
         </Link>
       </div>
-      <div>
-        <div>Total tickets: {totlatTickets}</div>
-        <div>Pending tickets: {pendingTickets.length}</div>
-      </div>
-      <div className="mt-2">Recently Added tickets</div>
       <div className="mt-2">
         <TicketTable tickets={tickets} />
       </div>

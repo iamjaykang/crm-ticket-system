@@ -3,7 +3,7 @@ import PasswordResetForm from "../../components/PasswordResetForm/PasswordResetF
 
 const ResetPasswordPage = () => {
   return (
-    <div className="h-screen text-center flex justify-center items-center text-xl bg-cyan-600">
+    <div className="h-screen text-center text-xl flex justify-center items-center bg-cyan-500">
       <PasswordResetForm />
     </div>
   );

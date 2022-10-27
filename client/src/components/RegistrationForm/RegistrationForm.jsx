@@ -77,11 +77,11 @@ const RegistrationForm = () => {
   return (
     <>
       <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 flex flex-col">
-        <h1 className="font-bold border-b text-2xl p-2">User Registration</h1>
+        <h1 className="font-bold border-b text-3xl p-2">User Registration</h1>
         <form autoComplete="Off" onSubmit={onSubmitHandler}>
           <div className="my-4">
             <label
-              className="block text-grey-darker text-base font-bold mb-2"
+              className="block text-grey-darker font-bold mb-2"
               htmlFor="email"
             >
               Email Address
@@ -98,7 +98,7 @@ const RegistrationForm = () => {
           </div>
           <div className="my-4">
             <label
-              className="block text-grey-darker text-base font-bold mb-2"
+              className="block text-grey-darker font-bold mb-2"
               htmlFor="name"
             >
               Full Name
@@ -115,7 +115,7 @@ const RegistrationForm = () => {
           </div>
           <div className="my-4">
             <label
-              className="block text-grey-darker text-base font-bold mb-2"
+              className="block text-grey-darker font-bold mb-2"
               htmlFor="name"
             >
               Company
@@ -132,7 +132,7 @@ const RegistrationForm = () => {
           </div>
           <div className="my-4">
             <label
-              className="block text-grey-darker text-base font-bold mb-2"
+              className="block text-grey-darker font-bold mb-2"
               htmlFor="password"
             >
               Password
@@ -149,7 +149,7 @@ const RegistrationForm = () => {
           </div>
           <div className="my-4">
             <label
-              className="block text-grey-darker text-base font-bold mb-2"
+              className="block text-grey-darker font-bold mb-2"
               htmlFor="password"
             >
               Confirm Password
@@ -211,7 +211,7 @@ const RegistrationForm = () => {
           </div>
           <div className="flex items-center justify-between">
             <button
-              className="bg-blue-400 w-full hover:bg-blue-dark text-white font-bold py-2 px-4 rounded"
+              className="bg-cyan-600 w-full hover:bg-cyan-700 text-white font-bold py-2 px-4 rounded"
               type="submit"
               disabled={Object.values(passwordError).includes(false)}
             >
@@ -236,9 +236,9 @@ const RegistrationForm = () => {
                 {message}
               </div>
             ))}
-          <div className="inline-block align-baseline font-bold text-base text-blue hover:text-blue-darker cursor-pointer mt-4">
+          <div className="inline-block align-baseline font-bold text-blue hover:text-blue-darker cursor-pointer mt-4">
             Already have an account?
-            <Link to="/" className="mx-2 text-base text-blue-400 underline">
+            <Link to="/" className="mx-2 text-blue-400 underline">
               Sign in instead
             </Link>
           </div>

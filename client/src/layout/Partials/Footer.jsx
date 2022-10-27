@@ -6,7 +6,7 @@ import GitHubIcon from "@mui/icons-material/GitHub";
 const Footer = () => {
   return (
     <>
-      <div className="name text-xl py-2">
+      <div className="name text-xl py-4">
         CRM App made by -{" "}
         <a
           href="https://www.linkedin.com/in/jay-kang-b5284a228/"

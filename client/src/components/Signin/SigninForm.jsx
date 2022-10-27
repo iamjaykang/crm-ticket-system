@@ -61,7 +61,7 @@ const SigninForm = () => {
   return (
     <div>
       <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 flex flex-col">
-        <h1 className="font-bold border-b text-2xl p-2">Client Login</h1>
+        <h1 className="font-bold border-b text-3xl p-2">Client Login</h1>
         {error && (
           <div
             className="p-4 mb-4 text-sm text-red-700 bg-red-100 rounded-lg dark:bg-red-200 dark:text-red-800"
@@ -73,7 +73,7 @@ const SigninForm = () => {
         <form autoComplete="Off" onSubmit={onSubmitHandler}>
           <div className="my-4">
             <label
-              className="block text-grey-darker text-sm font-bold mb-2"
+              className="block text-grey-darker font-bold mb-2"
               htmlFor="email"
             >
               Email Address
@@ -90,7 +90,7 @@ const SigninForm = () => {
           </div>
           <div className="mb-6">
             <label
-              className="block text-grey-darker text-sm font-bold mb-2"
+              className="block text-grey-darker font-bold mb-2"
               htmlFor="password"
             >
               Password
@@ -105,26 +105,26 @@ const SigninForm = () => {
               required
             />
           </div>
-          <div className="flex items-center justify-between">
+          <div className="flex items-center justify-between text-xl">
             <button
-              className="bg-blue-400 hover:bg-blue-dark text-white font-bold py-2 px-4 rounded"
+              className="bg-cyan-600 hover:bg-cyan-700 text-white font-bold py-2 px-10 rounded"
               type="submit"
             >
               Sign In
             </button>
             {isLoading && <Spinner />}
             <Link
-              className="inline-block align-baseline font-bold text-sm text-blue hover:text-blue-darker cursor-pointer"
+              className="inline-block align-baseline font-bold text-blue text-lg mx-4 hover:text-blue-darker cursor-pointer"
               to="/reset-password"
             >
               Forgot Password?
             </Link>
           </div>
-          <div className="inline-block align-baseline font-bold text-base text-blue hover:text-blue-darker cursor-pointer mt-4">
+          <div className="inline-block align-baseline font-bold text-blue text-lg hover:text-blue-darker cursor-pointer mt-4">
             Are you new here?{" "}
             <Link
               to="/registration"
-              className="mx-2 text-base text-blue-400 underline"
+              className="mx-2 text-blue-400 hover:text-blue-500 text-lg underline"
             >
               Register Now
             </Link>

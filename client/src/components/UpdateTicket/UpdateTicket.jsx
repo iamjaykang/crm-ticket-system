@@ -61,7 +61,7 @@ const UpdateTicket = ({ _id }) => {
         />
         <div className="text-right">
           <button
-            className="bg-blue-400 hover:bg-blue-dark text-white text-base font-bold py-2 px-4 rounded"
+            className="bg-cyan-500 hover:bg-blue-dark text-white text-xl font-bold py-2 px-4 rounded"
             type="submit"
           >
             Reply

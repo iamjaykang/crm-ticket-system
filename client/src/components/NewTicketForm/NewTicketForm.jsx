@@ -61,8 +61,8 @@ const NewTicketForm = () => {
     }
   }, [dispatch, formData, formDataError]);
   return (
-    <div>
-      <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 flex flex-col">
+    <div className="text-xl">
+      <div className="bg-gray-100 shadow-2xl rounded px-8 pt-6 pb-8 mb-4 flex flex-col">
         <h1 className="font-bold border-b text-2xl p-2">Add New Ticket</h1>
         <form autoComplete="Off" onSubmit={onSubmitHandler}>
           <div className="my-4">
@@ -134,7 +134,7 @@ const NewTicketForm = () => {
           )}
           <div className="flex items-center justify-between">
             <button
-              className="bg-blue-400 hover:bg-blue-dark text-white font-bold py-2 px-4 rounded w-full"
+              className="bg-cyan-500 hover:bg-blue-dark text-white font-bold py-2 px-4 rounded w-full"
               type="submit"
             >
               Add Ticket
