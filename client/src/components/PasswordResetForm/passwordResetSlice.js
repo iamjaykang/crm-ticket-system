@@ -23,12 +23,31 @@ const passwordResetSlice = createSlice({
       state.status = "error";
       state.message = payload;
     },
+    updateRequestPending: (state) => {
+      state.isLoading = true;
+    },
+    updateRequestSuccess: (state, { payload }) => {
+      state.isLoading = false;
+      state.status = "success";
+      state.message = payload;
+    },
+    updateRequestFail: (state, { payload }) => {
+      state.isLoading = false;
+      state.status = "error";
+      state.message = payload;
+    },
   },
 });
 
 const { reducer, actions } = passwordResetSlice;
 
-export const { resetRequestFail, resetRequestPending, resetRequestSuccess } =
-  actions;
+export const {
+  resetRequestFail,
+  resetRequestPending,
+  resetRequestSuccess,
+  updateRequestPending,
+  updateRequestSuccess,
+  updateRequestFail,
+} = actions;
 
 export default reducer;

@@ -1,14 +1,15 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 import { userVerification } from "./userVerificationAction";
 
-const UserVerification = ({ _id, email }) => {
+const UserVerification = () => {
   const dispatch = useDispatch();
 
   const { isLoading, status, message } = useSelector(
     (state) => state.userVerification
   );
-
+  const { _id, email } = useParams();
   const formData = { _id, email };
   useEffect(() => {
     dispatch(userVerification(formData));

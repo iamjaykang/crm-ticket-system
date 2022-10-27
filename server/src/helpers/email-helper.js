@@ -31,7 +31,7 @@ const sendEmail = (info) => {
   });
 };
 
-const emailProcessor = ({ email, pin, type, verificationLink = "" }) => {
+const emailProcessor = ({ email, pin, type, verificationLink = "", passwordResetLink = "" }) => {
   let info = "";
   switch (type) {
     case "request-new-password":
@@ -39,11 +39,11 @@ const emailProcessor = ({ email, pin, type, verificationLink = "" }) => {
         from: '"CRM Company" <benton.schmitt98@ethereal.email>', // sender address
         to: email, // list of receivers
         subject: "Password reset Pin", // Subject line
-        text: `Here is your password reset pin ${pin} This pin will expire in 15 minutes`, // plain text body
+        text: `Here is your password reset link ${passwordResetLink} This link will expire in 15 minutes`, // plain text body
         html: `<b>Hello</b>
-                Here is your password reset pin
-                <b>${pin} </b>
-                This pin will expire in 15 minutes`, // html body
+                Here is your password reset link
+                <b>${passwordResetLink}</b>
+                This link will expire in 15 minutes`, // html body
       };
 
       sendEmail(info);

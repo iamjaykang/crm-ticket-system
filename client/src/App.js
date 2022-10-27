@@ -9,6 +9,7 @@ import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
 import RegistrationPage from "./pages/Registration/RegistrationPage";
 import VerificationPage from "./pages/Verification/VerificationPage";
 import ResetPasswordPage from "./pages/ResetPassword/ResetPasswordPage";
+import UpdatePasswordPage from "./pages/UpdatePassword/UpdatePasswordPage";
 
 function App() {
   return (
@@ -18,7 +19,18 @@ function App() {
           <Route exact path="/" element={<SignInPage />} />
           <Route exact path="/registration" element={<RegistrationPage />} />
           <Route exact path="/reset-password" element={<ResetPasswordPage />} />
-          <Route exact path="/verification/:_id/:email" element={<VerificationPage />} />
+          <Route
+            exact
+            path="/update-password/:pin/:email"
+            element={<UpdatePasswordPage />}
+          />
+
+
+          <Route
+            exact
+            path="/verification/:_id/:email"
+            element={<VerificationPage />}
+          />
           <Route
             exact
             path="/dashboard"

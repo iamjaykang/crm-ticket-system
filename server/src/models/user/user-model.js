@@ -67,13 +67,13 @@ const storeUserRefreshJWT = (_id, token) => {
   });
 };
 
-const updatePassword = (email,newHashedPass) => {
-  return new Promise((resolve,reject)=>{
+const updatePassword = (email, newHashedPass) => {
+  return new Promise((resolve, reject) => {
     try {
       UserSchema.findOneAndUpdate(
         { email },
         {
-          $set: { "password": newHashedPass },
+          $set: { password: newHashedPass },
         },
         { new: true }
       )
@@ -86,16 +86,16 @@ const updatePassword = (email,newHashedPass) => {
       console.log(error);
       reject(error);
     }
-  })
-}
+  });
+};
 
-const verifyUser = (_id,email) => {
-  return new Promise((resolve,reject)=>{
+const verifyUser = (_id, email) => {
+  return new Promise((resolve, reject) => {
     try {
       UserSchema.findOneAndUpdate(
-        { _id ,email, isVerified: false},
+        { _id, email, isVerified: false },
         {
-          $set: { "isVerified": true },
+          $set: { isVerified: true },
         },
         { new: true }
       )
@@ -108,8 +108,8 @@ const verifyUser = (_id,email) => {
       console.log(error);
       reject(error);
     }
-  })
-}
+  });
+};
 
 module.exports = {
   insertUser,
@@ -117,5 +117,5 @@ module.exports = {
   getUserById,
   storeUserRefreshJWT,
   updatePassword,
-  verifyUser
+  verifyUser,
 };

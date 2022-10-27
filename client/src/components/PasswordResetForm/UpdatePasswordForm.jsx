@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+import { updatePassword } from "./passwordResetAction";
 
-const initialState = {
-  password: "",
-  confirmPass: "",
-};
+// const initialState = {
+//   pin: "",
+//   password: "",
+//   confirmPass: "",
+// };
 
 const passVerification = {
   isLengthy: false,
@@ -16,8 +18,15 @@ const passVerification = {
 };
 
 const UpdatePasswordForm = () => {
+  const { pin, email } = useParams();
+  const initialState = {
+    email: email,
+    pin: pin,
+    password: "",
+    confirmPass: "",
+  };
   const dispatch = useDispatch();
-  const [newUser, setNewUser] = useState(initialState);
+  const [newPassword, setNewPassword] = useState(initialState);
   const [passwordError, setPasswordError] = useState(passVerification);
 
   //   const { isLoading, status, message } = useSelector(
@@ -27,7 +36,7 @@ const UpdatePasswordForm = () => {
   const onChangeHandler = (e) => {
     const { name, value } = e.target;
 
-    setNewUser({ ...newUser, [name]: value });
+    setNewPassword({ ...newPassword, [name]: value });
     if (name === "password") {
       const isLengthy = value.length > 8;
       const hasUpper = /[A-Z]/.test(value);
@@ -42,11 +51,11 @@ const UpdatePasswordForm = () => {
         hasNumber,
       });
     }
-
+    console.log(newPassword);
     if (name === "confirmPass") {
       setPasswordError({
         ...passwordError,
-        confirmPass: newUser.password === value,
+        confirmPass: newPassword.password === value,
       });
     }
   };
@@ -54,14 +63,19 @@ const UpdatePasswordForm = () => {
   const onSubmitHandler = (e) => {
     e.preventDefault();
 
-    const { password } = newUser;
+    const { pin, password, email } = newPassword;
 
-    const newRegistration = {
-      password,
+    const newPassObj = {
+      pin,
+      newPassword: password,
+      email,
     };
+    console.log(newPassObj)
+
+    dispatch(updatePassword(newPassObj));
   };
 
-  useEffect(() => {}, [newUser]);
+  useEffect(() => {}, [newPassword]);
 
   return (
     <>
@@ -78,7 +92,7 @@ const UpdatePasswordForm = () => {
             <input
               className="shadow appearance-none border border-red rounded w-full py-2 px-3 text-grey-darker mb-3"
               name="password"
-              value={newUser.password}
+              value={newPassword.password}
               onChange={onChangeHandler}
               type="password"
               placeholder="••••••••"
@@ -96,7 +110,7 @@ const UpdatePasswordForm = () => {
               className="shadow appearance-none border border-red rounded w-full py-2 px-3 text-grey-darker mb-3"
               name="confirmPass"
               onChange={onChangeHandler}
-              value={newUser.confirmPass}
+              value={newPassword.confirmPass}
               type="password"
               placeholder="••••••••"
               required

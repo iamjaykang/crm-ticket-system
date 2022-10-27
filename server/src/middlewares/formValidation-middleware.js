@@ -11,7 +11,7 @@ const shortStr = Joi.string().max(50);
 
 const pin = Joi.string().min(6).max(6).required();
 
-const newPassword = Joi.string().alphanum().min(3).max(30).required();
+const newPassword = Joi.string().min(3).max(30).required();
 
 const currentDate = Joi.date();
 

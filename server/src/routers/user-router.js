@@ -179,6 +179,7 @@ router.post("/reset-password", resetPassReqValidation, async (req, res) => {
     await emailProcessor({
       email: email,
       pin: setPin.pin,
+      passwordResetLink: "http://localhost:3000/update-password/" + setPin.pin + `/${email}`,
       type: "request-new-password",
     });
   }
@@ -201,8 +202,8 @@ router.post("/reset-password", resetPassReqValidation, async (req, res) => {
 // 1. middleware to validate form data
 
 //update password router
-router.patch("/reset-password", updatePassValidation, async (req, res) => {
-  const { email, pin, newPassword } = req.body;
+router.patch("/update-password", updatePassValidation, async (req, res) => {
+  const { pin, email, newPassword } = req.body;
 
   const getPin = await getPinByEmailPin(email, pin);
 
