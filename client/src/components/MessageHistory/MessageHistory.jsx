@@ -7,15 +7,13 @@ const MessageHistory = ({ messages }) => {
   return messages.map((message, i) => (
     <div
       key={i}
-      className={
-        message.sender === "client"
-          ? "mt-5 flex flex-row justify-between text-base"
-          : "mt-5 flex flex-row-reverse justify-between text-base"
-      }
+      className="mt-5 flex flex-row even:flex-row-reverse justify-between text-base"
     >
       <div className="send">
         <div className="font-bold text-start">{message.sender}</div>
-        <div className="date">{message.msgAt && new Date(message.msgAt).toLocaleDateString()}</div>
+        <div className="date">
+          {message.msgAt && new Date(message.msgAt).toLocaleDateString()}
+        </div>
       </div>
       <div className="message w-4/5 border p-4">{message.message}</div>
     </div>

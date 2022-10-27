@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import logo from "../../assets/images/crm-logo.ico";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { LinkContainer } from "react-router-bootstrap";
 import { userLogout } from "../../api/userApi";
 
@@ -18,12 +18,12 @@ const Header = () => {
       <nav className="relative flex flex-wrap items-center justify-between px-2 py-3 bg-cyan-500 dark:bg-sky-800 ">
         <div className="container px-4 mx-auto flex flex-wrap items-center justify-between">
           <div className="w-full relative flex justify-between lg:w-auto lg:static lg:block lg:justify-start">
-            <a
+            <Link
               className="text-sm font-bold leading-relaxed inline-block mr-4 py-2 whitespace-nowrap uppercase text-white"
-              href="#pablo"
+              to="/"
             >
               <img src={logo} alt="logo" width={70} />
-            </a>
+            </Link>
             <button
               className="text-white cursor-pointer text-xl leading-none px-3 py-1 border border-solid border-transparent rounded bg-transparent block lg:hidden outline-none focus:outline-none"
               type="button"
