@@ -1,4 +1,5 @@
 import "./index.css";
+import React, { Component }  from 'react';
 import Dashboard from "./pages/Dashboard/Dashboard";
 import NewTicket from "./pages/NewTicket/NewTicket";
 import SignInPage from "./pages/SigninPage/SignInPage";
