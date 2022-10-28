@@ -13,7 +13,7 @@ Full stack CRM ticket system MERN stack app styled with tailwind css server side
 
 ## Update ticket page
 
-<a href="https://ibb.co/tHh2LC6"><img src="https://i.ibb.co/b63vbdV/CRM-full-stack-app3.png" alt="CRM-full-stack-app3" border="0"></a>
+<a href="https://ibb.co/dtzGv4C"><img src="https://i.ibb.co/jz1gYk0/Screenshot-2022-10-28-at-5-11-00-PM.png" alt="Screenshot-2022-10-28-at-5-11-00-PM" border="0"></a>
 
 
 ## Add new ticket page
