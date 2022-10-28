@@ -1,5 +1,5 @@
 # crm-ticket-system
-Full stack CRM ticket system MERN stack app styled with tailwind css server side state management using redux and use of jwt to validate user and which is stored in both redis and Mongo db
+Full stack CRM ticket system MERN stack app styled with tailwind css server side state management using redux and use of jwt to validate user which is stored in both redis and Mongo db
 
 ## Signin page
 
