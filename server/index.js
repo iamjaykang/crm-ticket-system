@@ -5,6 +5,7 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const helmet = require("helmet");
 const port = process.env.PORT || 3080;
+const path = require('path');
 
 // API security
 // app.use(helmet());
@@ -15,9 +16,12 @@ app.use(cors());
 //MongoDB Connection set up
 const mongoose = require("mongoose");
 
-mongoose.connect(process.env.MONGO_URL);
+mongoose.connect(process.env.MONGO_URL, {
+  useUnifiedTopology: true,
+  useNewUrlParser: true,
+});
 
-if (process.env.NODE_ENV !== "production") {
+if (process.env.NODE_ENV === "production") {
   const mDb = mongoose.connection;
   mDb.on("open", () => {
     console.log("MongoDB is connected");
@@ -27,6 +31,7 @@ if (process.env.NODE_ENV !== "production") {
     console.log(error);
   });
 }
+
 
 // Set body bodyparser
 
@@ -46,6 +51,21 @@ app.use("/v1/user", userRouter);
 app.use("/v1/ticket", ticketRouter);
 
 app.use("/v1/tokens", tokensRouter);
+// --------------------------deployment------------------------------
+const __dirname1 = path.resolve();
+
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname1, "../client/build")));
+
+  app.get("/*", (req, res) =>
+    res.sendFile(path.resolve(__dirname1, "frontend", "build", "index.html"))
+  );
+} else {
+  app.get("/", (req, res) => {
+    res.send("API is running..");
+  });
+}
+// --------------------------deployment------------------------------
 
 // Error handler
 
