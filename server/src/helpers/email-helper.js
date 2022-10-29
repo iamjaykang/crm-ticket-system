@@ -3,11 +3,11 @@ const nodemailer = require("nodemailer");
 
 // create reusable transporter object using the default SMTP transport
 const transporter = nodemailer.createTransport({
-  host: "smtp.ethereal.email",
-  port: 587,
+  host: process.env.SMTP_HOST,
+  port: process.env.SMTP_PORT,
   auth: {
-    user: "benton.schmitt98@ethereal.email",
-    pass: "Ch3SN9HcY7mxfxx9ZD",
+    user: process.env.SMTP_USERNAME,
+    pass: process.env.SMTP_PASSWORD,
   },
 });
 
@@ -36,14 +36,14 @@ const emailProcessor = ({ email, pin, type, verificationLink = "", passwordReset
   switch (type) {
     case "request-new-password":
       info = {
-        from: '"CRM Company" <benton.schmitt98@ethereal.email>', // sender address
+        from: `"CRM Company" <${process.env.SMTP_USERNAME}>`, // sender address
         to: email, // list of receivers
         subject: "Password reset Pin", // Subject line
         text: `Here is your password reset link ${passwordResetLink} and your verification pin is ${pin} This link will expire in 15 minutes`, // plain text body
         html: `<b>Hello</b>
                 Here is your password reset link
                 <a href="${passwordResetLink}">${passwordResetLink}</a>
-                <b>${pin}</b>
+                <p><b>${pin}</b></p>
                 This link will expire in 15 minutes`, // html body
       };
 
@@ -53,7 +53,7 @@ const emailProcessor = ({ email, pin, type, verificationLink = "", passwordReset
 
     case "password-update-success":
       info = {
-        from: '"CRM Company" <benton.schmitt98@ethereal.email>', // sender address
+        from: `"CRM Company" <${process.env.SMTP_USERNAME}>`, // sender address
         to: email, // list of receivers
         subject: "Password updated", // Subject line
         text: `Your password has been update successfully!`, // plain text body
@@ -67,14 +67,14 @@ const emailProcessor = ({ email, pin, type, verificationLink = "", passwordReset
 
     case "new-user-confirmation-required":
       info = {
-        from: '"CRM Company" <benton.schmitt98@ethereal.email>', // sender address
+        from: `"CRM Company" <${process.env.SMTP_USERNAME}>`, // sender address
         to: email, // list of receivers
         subject: "Please verify your account", // Subject line
         text: `Please follow the link to verify your account`, // plain text body
         html: `Hello
         <p>Please follow the link to verify your account</p>
         <a href="${verificationLink}">${verificationLink}</a>
-        <b>${pin}</b>
+        <p><b>${pin}</b></p>
         `, // html body
       };
 
