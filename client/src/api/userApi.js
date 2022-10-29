@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const rootUrl = "http://localhost:3080/v1/";
+const rootUrl = process.env.ROOT_URL;
 
 const signinUrl = rootUrl + "user/login";
 const userProfileUrl = rootUrl + "user";
