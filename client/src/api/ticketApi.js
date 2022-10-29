@@ -30,7 +30,6 @@ export const getSingleTicket = (_id) => {
 
       resolve(result);
     } catch (error) {
-      console.log(error.message);
       reject(error);
     }
   });
@@ -65,7 +64,6 @@ export const updateTicketStatusClosed = (_id, msgObj) => {
       );
       resolve(result.data);
     } catch (error) {
-      console.log(error.message);
       reject(error);
     }
   });
@@ -81,7 +79,6 @@ export const createNewTicket = (formData) => {
       });
       resolve(result.data);
     } catch (error) {
-      console.log(error.message);
       reject(error);
     }
   });

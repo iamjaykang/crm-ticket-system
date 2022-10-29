@@ -11,11 +11,11 @@ const path = require("path");
 // app.use(helmet());
 
 let corsOptions = {
-  origin: ["https://crudcrm-ticket-system.herokuapp.com/"],
+  origin: [process.env.HEROKU_URL],
 };
 
 // handle CORS error
-app.use(cors(corsOptions));
+app.use(cors());
 
 //MongoDB Connection set up
 const mongoose = require("mongoose");
@@ -47,11 +47,22 @@ const tokensRouter = require("./src/routers/tokens-router");
 
 // Routers
 
-app.use("/api/user", userRouter);
+{
+  process.env.NODE_ENV === "production"
+    ? app.use("/api/user", userRouter)
+    : app.use("/v1/user", userRouter);
+}
+{
+  process.env.NODE_ENV === "production"
+    ? app.use("/api/ticket", ticketRouter)
+    : app.use("/v1/ticket", ticketRouter);
+}
 
-app.use("/api/ticket", ticketRouter);
-
-app.use("/api/tokens", tokensRouter);
+{
+  process.env.NODE_ENV === "production"
+    ? app.use("/api/tokens", tokensRouter)
+    : app.use("/v1/tokens", tokensRouter);
+}
 // --------------------------deployment------------------------------
 const __dirname1 = path.resolve();
 
