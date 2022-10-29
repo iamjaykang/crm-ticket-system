@@ -43,11 +43,11 @@ const tokensRouter = require("./src/routers/tokens-router");
 
 // Routers
 
-app.use("/v1/user", userRouter);
+app.use("/api/user", userRouter);
 
-app.use("/v1/ticket", ticketRouter);
+app.use("/api/ticket", ticketRouter);
 
-app.use("/v1/tokens", tokensRouter);
+app.use("/api/tokens", tokensRouter);
 // --------------------------deployment------------------------------
 const __dirname1 = path.resolve();
 
