@@ -39,10 +39,11 @@ const emailProcessor = ({ email, pin, type, verificationLink = "", passwordReset
         from: '"CRM Company" <benton.schmitt98@ethereal.email>', // sender address
         to: email, // list of receivers
         subject: "Password reset Pin", // Subject line
-        text: `Here is your password reset link ${passwordResetLink} This link will expire in 15 minutes`, // plain text body
+        text: `Here is your password reset link ${passwordResetLink} and your verification pin is ${pin} This link will expire in 15 minutes`, // plain text body
         html: `<b>Hello</b>
                 Here is your password reset link
-                <b>${passwordResetLink}</b>
+                <a href="${passwordResetLink}">${passwordResetLink}</a>
+                <b>${pin}</b>
                 This link will expire in 15 minutes`, // html body
       };
 
@@ -56,7 +57,7 @@ const emailProcessor = ({ email, pin, type, verificationLink = "", passwordReset
         to: email, // list of receivers
         subject: "Password updated", // Subject line
         text: `Your password has been update successfully!`, // plain text body
-        html: `<b>Hello</b>
+        html: `Hello
         <p>Your password has been update successfully!</p>`, // html body
       };
 
@@ -70,10 +71,10 @@ const emailProcessor = ({ email, pin, type, verificationLink = "", passwordReset
         to: email, // list of receivers
         subject: "Please verify your account", // Subject line
         text: `Please follow the link to verify your account`, // plain text body
-        html: `<b>Hello</b>
+        html: `Hello
         <p>Please follow the link to verify your account</p>
-        <p>${verificationLink}</p>
-        
+        <a href="${verificationLink}">${verificationLink}</a>
+        <b>${pin}</b>
         `, // html body
       };
 

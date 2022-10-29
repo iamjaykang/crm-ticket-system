@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const rootUrl = process.env.ROOT_URL;
+const rootUrl = process.env.REACT_APP_ROOT_URL;
 
 const signinUrl = rootUrl + "user/login";
 const userProfileUrl = rootUrl + "user";

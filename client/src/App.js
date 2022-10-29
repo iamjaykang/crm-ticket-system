@@ -22,14 +22,14 @@ function App() {
           <Route exact path="/reset-password" element={<ResetPasswordPage />} />
           <Route
             exact
-            path="/update-password/:pin/:email"
+            path="/update-password/:pin?/:email?"
             element={<UpdatePasswordPage />}
           />
 
 
           <Route
             exact
-            path="/verification/:_id/:email"
+            path="/verification/:_id"
             element={<VerificationPage />}
           />
           <Route

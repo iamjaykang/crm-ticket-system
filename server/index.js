@@ -5,7 +5,7 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const helmet = require("helmet");
 const port = process.env.PORT || 5000;
-const path = require('path');
+const path = require("path");
 
 // API security
 // app.use(helmet());
@@ -21,17 +21,14 @@ mongoose.connect(process.env.MONGO_URL, {
   useNewUrlParser: true,
 });
 
-if (process.env.NODE_ENV === "production") {
-  const mDb = mongoose.connection;
-  mDb.on("open", () => {
-    console.log("MongoDB is connected");
-  });
+const mDb = mongoose.connection;
+mDb.on("open", () => {
+  console.log("MongoDB is connected");
+});
 
-  mDb.on("error", (error) => {
-    console.log(error);
-  });
-}
-
+mDb.on("error", (error) => {
+  console.log(error);
+});
 
 // Set body bodyparser
 
