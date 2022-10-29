@@ -10,6 +10,7 @@ import RegistrationPage from "./pages/Registration/RegistrationPage";
 import VerificationPage from "./pages/Verification/VerificationPage";
 import ResetPasswordPage from "./pages/ResetPassword/ResetPasswordPage";
 import UpdatePasswordPage from "./pages/UpdatePassword/UpdatePasswordPage";
+import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
 
 function App() {
   return (
