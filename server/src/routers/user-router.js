@@ -24,6 +24,7 @@ const {
   storeUserRefreshJWT,
   verifyUser,
 } = require("../models/user/user-model");
+const { randomPinNumber } = require("../utils/randomGenerator");
 
 router.all("/", (req, res, next) => {
   //   res.json({ message: "return from user router" });
@@ -34,9 +35,9 @@ router.all("/", (req, res, next) => {
 router.patch("/verify", async (req, res) => {
   try {
     //this data is coming from database
-    const { _id, email } = req.body;
+    const { _id, pin } = req.body;
     //update our user database
-    const result = await verifyUser(_id, email);
+    const result = await verifyUser(_id, pin);
 
     if (result && result._id) {
       return res.json({
@@ -80,12 +81,16 @@ router.post("/", newUserValidation, async (req, res) => {
   try {
     // hash password
     const hashedPass = await hashPassword(password);
+    // random 6 pin for verification
+    const pinLength = 6;
+    const randPin = await randomPinNumber(pinLength);
 
     const newUserObj = {
       name,
       company,
       email,
       password: hashedPass,
+      pin: randPin,
     };
 
     const result = await insertUser(newUserObj);
@@ -93,9 +98,10 @@ router.post("/", newUserValidation, async (req, res) => {
 
     await emailProcessor({
       email: email,
+      pin: randPin,
       type: "new-user-confirmation-required",
       verificationLink:
-        "http://localhost:3000/verification/" + result._id + `/${email}`,
+        `${process.env.VERIFICATION_URL}verification/` + result._id,
     });
     res.json({ status: "success", message: "New user created", result });
   } catch (error) {
@@ -153,7 +159,7 @@ router.post("/login", async (req, res) => {
 
   res.json({
     status: "success",
-    message: "Login Successfully!",
+    message: "Login Successful!",
     accessJWT,
     refreshJWT,
   });
@@ -179,7 +185,10 @@ router.post("/reset-password", resetPassReqValidation, async (req, res) => {
     await emailProcessor({
       email: email,
       pin: setPin.pin,
-      passwordResetLink: "http://localhost:3000/update-password/" + setPin.pin + `/${email}`,
+      passwordResetLink:
+        `${process.env.VERIFICATION_URL}update-password/` +
+        setPin.pin +
+        `/${email}`,
       type: "request-new-password",
     });
   }

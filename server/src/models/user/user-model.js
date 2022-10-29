@@ -89,13 +89,14 @@ const updatePassword = (email, newHashedPass) => {
   });
 };
 
-const verifyUser = (_id, email) => {
+const verifyUser = (_id, pin) => {
   return new Promise((resolve, reject) => {
     try {
       UserSchema.findOneAndUpdate(
-        { _id, email, isVerified: false },
+        { _id, pin, isVerified: false },
         {
           $set: { isVerified: true },
+          $unset: { pin: "" },
         },
         { new: true }
       )

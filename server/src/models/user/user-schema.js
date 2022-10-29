@@ -40,6 +40,11 @@ const UserSchema = new Schema({
     required: true,
     default: false,
   },
+  pin: {
+    type: String,
+    minlength: 6,
+    maxlength: 6,
+  },
 });
 
 //mongoose will automatically enter collection as users when 'User' is put

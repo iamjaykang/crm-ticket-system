@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const rootUrl = "http://localhost:3080/v1/";
+const rootUrl = process.env.REACT_APP_ROOT_URL;
 
 const passwordResetUrl = rootUrl + "user/reset-password";
 const passwordUpdateUrl = rootUrl + "user/update-password";
