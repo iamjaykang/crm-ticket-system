@@ -1,5 +1,4 @@
 import React from "react";
-import { useParams } from "react-router-dom";
 import UserVerification from "../../components/UserVerification/UserVerification";
 
 const VerificationPage = () => {

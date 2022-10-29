@@ -25,7 +25,7 @@ function App() {
             path="/update-password/:pin/:email"
             element={<UpdatePasswordPage />}
           />
-          <Route path="/verification/:id" element={<VerificationPage />} />
+          <Route exact path="/verification/:_id" element={<VerificationPage />} />
           <Route
             exact
             path="/dashboard"

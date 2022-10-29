@@ -7,6 +7,7 @@ import { userVerification } from "./userVerificationAction";
 const UserVerification = () => {
   const dispatch = useDispatch();
   const [pin, setPin] = useState('');
+  const { _id } = useParams();
 
   const onChangeHandler = (e) => {
     const { value } = e.target;
@@ -24,7 +25,7 @@ const UserVerification = () => {
   const { isLoading, status, message } = useSelector(
     (state) => state.userVerification
   );
-  const { _id } = useParams();
+  
   const formData = { _id, pin };
   useEffect(() => {}, [dispatch]);
   return (
