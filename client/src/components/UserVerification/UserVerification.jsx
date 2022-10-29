@@ -18,15 +18,15 @@ const UserVerification = () => {
     e.preventDefault();
 
     
-    dispatch(userVerification(formData));
+    // dispatch(userVerification(formData));
   };
 
   const { isLoading, status, message } = useSelector(
     (state) => state.userVerification
   );
-  const { _id } = useParams();
-  const formData = { _id, pin };
-  console.log(formData)
+  // const { _id } = useParams();
+  // const formData = { _id, pin };
+  // console.log(formData)
   useEffect(() => {}, [dispatch]);
   return (
     <>

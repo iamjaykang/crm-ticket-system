@@ -1,11 +1,11 @@
 import "./index.css";
-import React, { Component }  from 'react';
+import React, { Component } from "react";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import NewTicket from "./pages/NewTicket/NewTicket";
 import SignInPage from "./pages/SigninPage/SignInPage";
 import Ticket from "./pages/Ticket/Ticket";
 import TicketList from "./pages/TicketList/TicketList";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router";
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
 import RegistrationPage from "./pages/Registration/RegistrationPage";
 import VerificationPage from "./pages/Verification/VerificationPage";
@@ -22,16 +22,10 @@ function App() {
           <Route exact path="/reset-password" element={<ResetPasswordPage />} />
           <Route
             exact
-            path="/update-password/:pin?/:email?"
+            path="/update-password/:pin/:email"
             element={<UpdatePasswordPage />}
           />
-
-
-          <Route
-            exact
-            path="/verification/:_id"
-            element={<VerificationPage />}
-          />
+          <Route path="/verification/:id" element={<VerificationPage />} />
           <Route
             exact
             path="/dashboard"
