@@ -1,6 +1,10 @@
 # crm-ticket-system
 Full stack CRM ticket system MERN stack app styled with tailwind css server side state management using redux and use of jwt to validate user which is stored in both redis and Mongo db
 
+## Live Version
+
+https://crudcrm-ticket-system.herokuapp.com/
+
 ## Signin page
 
 <a href="https://ibb.co/sPc06j1"><img src="https://i.ibb.co/VNb7QVC/CRM-full-stack-app.png" alt="CRM-full-stack-app" border="0"></a>
