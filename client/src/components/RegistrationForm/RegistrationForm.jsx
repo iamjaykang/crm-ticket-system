@@ -4,11 +4,11 @@ import { Link } from "react-router-dom";
 import { userRegistration } from "./userRegistrationAction";
 
 const initialState = {
-  name: "test",
-  email: "test@test",
-  password: "Test1234",
-  confirmPass: "Test1234",
-  company: "Healthright",
+  name: "",
+  email: "",
+  password: "",
+  confirmPass: "",
+  company: "",
 };
 
 const passVerification = {
