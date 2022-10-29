@@ -10,8 +10,12 @@ const path = require("path");
 // API security
 // app.use(helmet());
 
+let corsOptions = {
+  origin: ["https://crudcrm-ticket-system.herokuapp.com/"],
+};
+
 // handle CORS error
-app.use(cors());
+app.use(cors(corsOptions));
 
 //MongoDB Connection set up
 const mongoose = require("mongoose");
