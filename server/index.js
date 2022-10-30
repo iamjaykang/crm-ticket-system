@@ -15,7 +15,9 @@ let corsOptions = {
 };
 
 // handle CORS error
-app.use(cors(corsOptions));
+process.env.NODE_ENV === "production"
+  ? app.use(cors(corsOptions))
+  : app.use(cors());
 
 //MongoDB Connection set up
 const mongoose = require("mongoose");
