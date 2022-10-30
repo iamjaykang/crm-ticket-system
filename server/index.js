@@ -15,7 +15,7 @@ let corsOptions = {
 };
 
 // handle CORS error
-app.use(cors());
+app.use(cors(corsOptions));
 
 //MongoDB Connection set up
 const mongoose = require("mongoose");
