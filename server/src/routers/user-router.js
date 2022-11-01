@@ -103,7 +103,7 @@ router.post("/", newUserValidation, async (req, res) => {
       verificationLink:
         `${process.env.VERIFICATION_URL}verification/` + result._id,
     });
-    res.json({ status: "success", message: "New user created", result });
+    res.json({ status: "success", message: "Your account has been created, please check your email to verify your account", result });
   } catch (error) {
     console.log(error);
     let message =
