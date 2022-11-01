@@ -76,7 +76,7 @@ const RegistrationForm = () => {
 
   return (
     <>
-      <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 flex flex-col">
+      <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 my-4 flex flex-col">
         <h1 className="font-bold border-b text-3xl p-2">User Registration</h1>
         <form autoComplete="Off" onSubmit={onSubmitHandler}>
           <div className="my-4">
