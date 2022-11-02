@@ -11,7 +11,7 @@ const path = require("path");
 // app.use(helmet());
 
 let corsOptions = {
-  origin: [process.env.HEROKU_URL],
+  origin: [process.env.ALLOWED_URL],
 };
 
 // handle CORS error
