@@ -132,11 +132,11 @@ router.post("/login", async (req, res) => {
 
   const user = await getUserByEmail(email);
 
-  if (!user.isVerified) {
+  if (!user.isVerified && user.type === 'client') {
     return res.json({
       status: "error",
       message:
-        "Your account has not been verified. Please verify your email before you login",
+        "Your account has not been verified or this is the wrong portal. Please verify your email before you login or try the right portal",
     });
   }
   console.log(user);
