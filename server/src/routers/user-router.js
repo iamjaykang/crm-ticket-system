@@ -1,4 +1,3 @@
-const { json } = require("body-parser");
 const express = require("express");
 const { hashPassword, comparePassword } = require("../helpers/bcrypt-helper");
 const { emailProcessor } = require("../helpers/email-helper");
@@ -77,7 +76,7 @@ router.get("/", userAuthorization, async (req, res) => {
 
 // Create new user router
 router.post("/", newUserValidation, async (req, res) => {
-  const { name, company, email, password } = req.body;
+  const { name, company, email, type, password } = req.body;
   try {
     // hash password
     const hashedPass = await hashPassword(password);
@@ -89,6 +88,7 @@ router.post("/", newUserValidation, async (req, res) => {
       name,
       company,
       email,
+      type,
       password: hashedPass,
       pin: randPin,
     };
@@ -106,6 +106,7 @@ router.post("/", newUserValidation, async (req, res) => {
     res.json({ status: "success", message: "Your account has been created, please check your email to verify your account", result });
   } catch (error) {
     console.log(error);
+    console.log(error.message)
     let message =
       "Unable to create a new account at the moment, please try again later";
     if (error.message.includes("duplicate key error collection")) {
@@ -136,6 +137,58 @@ router.post("/login", async (req, res) => {
       status: "error",
       message:
         "Your account has not been verified. Please verify your email before you login",
+    });
+  }
+  console.log(user);
+
+  const passFromDb = user && user._id ? user.password : null;
+
+  if (!passFromDb)
+    return res.json({ status: "error", message: "Invalid email or password!" });
+
+  const result = await comparePassword(password, passFromDb);
+
+  if (!result) {
+    return res.json({ status: "error", message: "Invalid email or password!" });
+  }
+
+  const accessJWT = await createAccessJWT(user.email, `${user._id}`);
+
+  const refreshJWT = await createRefreshJWT(user.email, `${user._id}`);
+
+  console.log(result);
+
+  res.json({
+    status: "success",
+    message: "Login Successful!",
+    accessJWT,
+    refreshJWT,
+  });
+});
+
+// Admin sign in router
+router.post("/admin/login", async (req, res) => {
+  console.log(req.body);
+
+  const { email, password } = req.body;
+
+  /// hash our password and compare with the db one
+
+  if (!email || !password) {
+    return res.json({ status: "error", message: "Invalid form submission!" });
+  }
+
+  /// get user with email from db
+
+  const user = await getUserByEmail(email);
+
+  //check if user type is admin and if not throw error
+
+  if (user.type != 'admin') {
+    return res.json({
+      status: "error",
+      message:
+        "Your account does not have access. Please login using the right portal",
     });
   }
   console.log(user);

@@ -11,6 +11,7 @@ import VerificationPage from "./pages/Verification/VerificationPage";
 import ResetPasswordPage from "./pages/ResetPassword/ResetPasswordPage";
 import UpdatePasswordPage from "./pages/UpdatePassword/UpdatePasswordPage";
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
+import AdminSignInPage from "./pages/AdminSigninPage/AdminSignInPage";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
       <Router>
         <Routes>
           <Route exact path="/" element={<SignInPage />} />
+          <Route exact path="/admin" element={<AdminSignInPage />} />
           <Route exact path="/registration" element={<RegistrationPage />} />
           <Route exact path="/reset-password" element={<ResetPasswordPage />} />
           <Route

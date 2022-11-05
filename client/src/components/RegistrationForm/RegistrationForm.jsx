@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import Spinner from "../Spinner/Spinner";
 import { userRegistration } from "./userRegistrationAction";
 
 const initialState = {
@@ -9,6 +10,7 @@ const initialState = {
   password: "",
   confirmPass: "",
   company: "",
+  type: "client",
 };
 
 const passVerification = {
@@ -58,26 +60,30 @@ const RegistrationForm = () => {
   const onSubmitHandler = (e) => {
     e.preventDefault();
 
-    const { name, phone, email, company, address, password } = newUser;
+    const { name, email, company, password, type } = newUser;
 
     const newRegistration = {
       name,
-      phone,
       email,
       company,
-      address,
       password,
+      type,
     };
-
+    console.log(newRegistration);
     dispatch(userRegistration(newRegistration));
   };
 
   useEffect(() => {}, [newUser]);
 
+  console.log(message)
+  console.log(status)
+
   return (
     <>
       <div className="bg-white justify-center h-3/4 lg:h-full items-center shadow-md rounded px-8 pt-6 pb-8 my-4 flex flex-col">
-        <h1 className="font-bold border-b text-2xl lg:text-3xl p-2">User Registration</h1>
+        <h1 className="font-bold border-b text-2xl lg:text-3xl p-2">
+          User Registration
+        </h1>
         <form autoComplete="Off" className="" onSubmit={onSubmitHandler}>
           <div className="my-4">
             <label
@@ -218,6 +224,7 @@ const RegistrationForm = () => {
               Create an account
             </button>
           </div>
+          {isLoading && <Spinner />}
           {message &&
             (message !=
             ("this email is already registered" ||

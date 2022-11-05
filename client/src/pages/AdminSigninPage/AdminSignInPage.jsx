@@ -1,20 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import AdminSigninForm from "../../components/AdminSignin/AdminSigninForm";
 import SigninForm from "../../components/Signin/SigninForm";
 
-const SignInPage = () => {
+const AdminSignInPage = () => {
   return (
     <div className="h-screen flex flex-col justify-center items-center text-xl bg-cyan-500">
       <div>
         <div className="text-center">
-          <SigninForm />
+          <AdminSigninForm />
         </div>
         <div className="items-start justify-start">
           <Link
-            to='/admin'
+            to='/'
             className="mx-2 text-black font-bold hover:text-blue-800 text-lg underline"
           >
-            Admin Portal
+            Client Portal
           </Link>
         </div>
       </div>
@@ -22,4 +23,4 @@ const SignInPage = () => {
   );
 };
 
-export default SignInPage;
+export default AdminSignInPage;

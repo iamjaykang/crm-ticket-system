@@ -3,6 +3,7 @@ import axios from "axios";
 const rootUrl = process.env.REACT_APP_ROOT_URL;
 
 const signinUrl = rootUrl + "user/login";
+const adminSigninUrl = rootUrl + "user/admin/login";
 const userProfileUrl = rootUrl + "user";
 const logoutUrl = rootUrl + "user/logout";
 const newAccessJWT = rootUrl + "tokens";
@@ -12,6 +13,7 @@ export const userRegistrationApi = (formData) => {
   return new Promise(async (resolve, reject) => {
     try {
       const res = await axios.post(userProfileUrl, formData);
+      console.log(res)
 
       if (res.data.status === "success") {
         resolve(res.data);
@@ -38,6 +40,26 @@ export const userSignin = (formData) => {
   return new Promise(async (resolve, reject) => {
     try {
       const res = await axios.post(signinUrl, formData);
+
+      resolve(res.data);
+
+      if (res.data.status === "success") {
+        sessionStorage.setItem("accessJWT", res.data.accessJWT);
+        localStorage.setItem(
+          "crmSite",
+          JSON.stringify({ refreshJWT: res.data.refreshJWT })
+        );
+      }
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+
+export const adminSignin = (formData) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const res = await axios.post(adminSigninUrl, formData);
 
       resolve(res.data);
 
