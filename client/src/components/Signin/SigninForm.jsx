@@ -60,11 +60,11 @@ const SigninForm = () => {
   }, [navigate, isAuth]);
   return (
     <div>
-      <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 flex flex-col">
+      <div className="bg-white shadow-md max-w-sm rounded px-8 pt-6 pb-8 mb-4 flex flex-col">
         <h1 className="font-bold border-b text-3xl p-2">Client Login</h1>
         {error && (
           <div
-            className="p-4 mb-4 text-sm text-red-700 bg-red-100 rounded-lg dark:bg-red-200 dark:text-red-800"
+            className="p-4 mb-4 text-sm text-red-700 bg-red-100 rounded-lg dark:bg-red-200 dark:text-red-800 break-normal"
             role="alert"
           >
             {error}
