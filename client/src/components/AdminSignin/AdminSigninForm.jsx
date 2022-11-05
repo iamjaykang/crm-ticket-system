@@ -60,7 +60,7 @@ const AdminSigninForm = () => {
   }, [navigate, isAuth]);
   return (
     <div>
-      <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 flex flex-col">
+      <div className="bg-white max-w-sm shadow-md rounded px-8 pt-6 pb-8 mb-4 flex flex-col">
         <h1 className="font-bold border-b text-3xl p-2">Admin Login</h1>
         {error && (
           <div

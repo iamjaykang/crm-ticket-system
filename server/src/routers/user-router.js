@@ -132,7 +132,7 @@ router.post("/login", async (req, res) => {
 
   const user = await getUserByEmail(email);
 
-  if (!user.isVerified && user.type === 'client') {
+  if (!user.isVerified || user.type != 'client') {
     return res.json({
       status: "error",
       message:
