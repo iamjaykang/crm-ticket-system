@@ -69,14 +69,10 @@ const RegistrationForm = () => {
       password,
       type,
     };
-    console.log(newRegistration);
     dispatch(userRegistration(newRegistration));
   };
 
   useEffect(() => {}, [newUser]);
-
-  console.log(message)
-  console.log(status)
 
   return (
     <>
@@ -226,7 +222,7 @@ const RegistrationForm = () => {
           </div>
           {isLoading && <Spinner />}
           {message &&
-            (message !=
+            (message !==
             ("this email is already registered" ||
               "Unable to create a new account at the moment, please try again later") ? (
               <div
