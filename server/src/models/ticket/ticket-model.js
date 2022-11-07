@@ -1,5 +1,5 @@
 const { promises } = require("nodemailer/lib/xoauth2");
-const { TicketSchema } = require("./ticket-chema");
+const { TicketSchema } = require("./ticket-schema");
 
 const insertTicket = (ticketObj) => {
   return new Promise((resolve, reject) => {
@@ -20,6 +20,20 @@ const getTickets = (clientId) => {
   return new Promise((resolve, reject) => {
     try {
       TicketSchema.find({ clientId })
+        .then((data) => {
+          resolve(data);
+        })
+        .catch((error) => reject(error));
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+
+const getAllTickets = () => {
+  return new Promise((resolve, reject) => {
+    try {
+      TicketSchema.find()
         .then((data) => {
           resolve(data);
         })
@@ -108,4 +122,5 @@ module.exports = {
   updateClientReply,
   updateStatusClosed,
   deleteTicket,
+  getAllTickets
 };

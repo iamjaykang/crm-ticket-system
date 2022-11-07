@@ -139,7 +139,6 @@ router.post("/login", async (req, res) => {
         "Your account has not been verified or this is the wrong portal. Please verify your email before you login or try the right portal",
     });
   }
-  console.log(user);
 
   const passFromDb = user && user._id ? user.password : null;
 
@@ -182,7 +181,7 @@ router.post("/admin/login", async (req, res) => {
 
   const user = await getUserByEmail(email);
 
-  //check if user type is admin and if not throw error
+  //check if user type is admin and if not return error
 
   if (user.type != 'admin') {
     return res.json({
@@ -191,7 +190,6 @@ router.post("/admin/login", async (req, res) => {
         "Your account does not have access. Please login using the right portal",
     });
   }
-  console.log(user);
 
   const passFromDb = user && user._id ? user.password : null;
 

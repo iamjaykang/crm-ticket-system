@@ -5,7 +5,7 @@ import { fetchNewAccessJWT } from "../../api/userApi";
 import DefaultLayout from "../../layout/DefaultLayout";
 import { signinSuccess } from "../Signin/signInSlice";
 
-const PrivateRoute = ({ children, ...rest }) => {
+const PrivateRoute = ({ children }) => {
   const { isAuth } = useSelector((state) => state.signin);
   const dispatch = useDispatch();
 

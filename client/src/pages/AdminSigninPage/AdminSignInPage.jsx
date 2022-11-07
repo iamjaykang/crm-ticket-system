@@ -1,7 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import AdminSigninForm from "../../components/AdminSignin/AdminSigninForm";
-import SigninForm from "../../components/Signin/SigninForm";
 
 const AdminSignInPage = () => {
   return (
