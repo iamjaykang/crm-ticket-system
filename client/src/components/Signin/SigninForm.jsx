@@ -105,7 +105,7 @@ const SigninForm = () => {
               required
             />
           </div>
-          <div className="flex items-center justify-between text-xl">
+          <div className="flex whitespace-nowrap items-center justify-between text-xl">
             <button
               className="bg-cyan-600 hover:bg-cyan-700 text-white font-bold py-2 px-10 rounded"
               type="submit"

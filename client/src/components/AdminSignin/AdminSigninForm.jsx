@@ -104,9 +104,9 @@ const AdminSigninForm = () => {
               required
             />
           </div>
-          <div className="flex items-center justify-between text-xl">
+          <div className="flex items-center whitespace-nowrap justify-between text-xl">
             <button
-              className="bg-cyan-600 hover:bg-cyan-700 text-white font-bold py-2 px-10 rounded"
+              className="bg-cyan-600 hover:bg-cyan-700 text-white no font-bold py-2 px-10 rounded"
               type="submit"
             >
               Sign In
@@ -117,15 +117,6 @@ const AdminSigninForm = () => {
               to="/reset-password"
             >
               Forgot Password?
-            </Link>
-          </div>
-          <div className="inline-block align-baseline font-bold text-blue text-lg hover:text-blue-darker cursor-pointer mt-4">
-            Are you new here?{" "}
-            <Link
-              to="/registration"
-              className="mx-2 text-blue-400 hover:text-blue-500 text-lg underline"
-            >
-              Register Now
             </Link>
           </div>
         </form>

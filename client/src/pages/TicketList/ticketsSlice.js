@@ -13,7 +13,7 @@ const ticketListSlice = createSlice({
   name: "ticketList",
   initialState,
   reducers: {
-    fetchTicketLoading: (state, action) => {
+    fetchTicketLoading: (state) => {
       state.isLoading = true;
     },
     fetchTicketSuccess: (state, {payload}) => {

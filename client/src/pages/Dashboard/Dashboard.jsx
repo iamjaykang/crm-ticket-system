@@ -3,20 +3,28 @@ import BreadCrumb from "../../components/BreadCrumb/BreadCrumb";
 import TicketTable from "../../components/TicketTable/TicketTable";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchAllTickets } from "../TicketList/ticketsAction";
+import {
+  fetchAllTickets,
+  fetchAllTicketsAdmin,
+} from "../TicketList/ticketsAction";
 
 const Dashboard = () => {
   const dispatch = useDispatch();
   const { tickets } = useSelector((state) => state.tickets);
+  const { isAdmin } = useSelector((state) => state.adminSignin);
 
   useEffect(() => {
     if (!tickets.length) {
-      dispatch(fetchAllTickets());
+      {
+        isAdmin
+          ? dispatch(fetchAllTicketsAdmin())
+          : dispatch(fetchAllTickets());
+      }
     }
   }, [tickets, dispatch]);
 
   const pendingTickets = tickets.filter((row) => row.status !== "Closed");
-  const totlatTickets = tickets.length;
+  const totatTickets = tickets.length;
   return (
     <div className="container flex flex-col">
       <div className="mb-6">
@@ -25,7 +33,7 @@ const Dashboard = () => {
       <div className=""></div>
       <div>
         <div className="text-black text-xl dark:text-gray-400">
-          Total tickets: {totlatTickets}
+          Total tickets: {totatTickets}
         </div>
         <div className="text-black text-xl dark:text-gray-400">
           Pending tickets: {pendingTickets.length}

@@ -1,4 +1,5 @@
 import {
+  adminGetAllTickets,
   getAllTickets,
   getSingleTicket,
   updateTicketStatusClosed,
@@ -21,6 +22,20 @@ export const fetchAllTickets = () => async (dispatch) => {
   try {
     //fetch data from API
     const result = await getAllTickets();
+
+    result.data.result.length &&
+      dispatch(fetchTicketSuccess(result.data.result));
+  } catch (error) {
+    dispatch(fetchTicketFail(error.message));
+  }
+};
+
+export const fetchAllTicketsAdmin = () => async (dispatch) => {
+  dispatch(fetchTicketLoading());
+  try {
+    //fetch data from API
+    const result = await adminGetAllTickets();
+    console.log(result)
 
     result.data.result.length &&
       dispatch(fetchTicketSuccess(result.data.result));

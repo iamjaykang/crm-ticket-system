@@ -1,6 +1,6 @@
 import React from "react";
-import { useDispatch } from "react-redux";
-import { fetchAllTickets } from "./ticketsAction";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchAllTickets, fetchAllTicketsAdmin } from "./ticketsAction";
 import { useEffect } from "react";
 import BreadCrumb from "../../components/BreadCrumb/BreadCrumb";
 import SearchForm from "../../components/SearchForm/SearchForm";
@@ -8,10 +8,13 @@ import TicketTable from "../../components/TicketTable/TicketTable";
 import { Link } from "react-router-dom";
 
 const TicketList = () => {
+  const { isAdmin } = useSelector((state) => state.adminSignin);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchAllTickets());
+    {
+      isAdmin ? dispatch(fetchAllTicketsAdmin()) : dispatch(fetchAllTickets());
+    }
   }, [dispatch]);
   return (
     <div className="container my-4">

@@ -2,7 +2,7 @@ import axios from "axios";
 
 const rootUrl = process.env.REACT_APP_ROOT_URL;
 const ticketUrl = rootUrl + "ticket/";
-const adminTicketUrl = rootUrl + "ticket/get-tickets";
+const adminTicketUrl = rootUrl + "ticket/all-tickets";
 const updateStatusUrl = rootUrl + "ticket/close-ticket/";
 
 export const getAllTickets = () => {
@@ -28,6 +28,7 @@ export const adminGetAllTickets = () => {
           Authorization: sessionStorage.getItem("accessJWT"),
         },
       });
+      console.log(result)
       resolve(result);
     } catch (error) {
       reject(error);
