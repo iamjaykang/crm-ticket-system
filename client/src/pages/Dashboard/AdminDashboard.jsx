@@ -4,16 +4,17 @@ import TicketTable from "../../components/TicketTable/TicketTable";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  fetchAllTickets,
+  fetchAllTicketsAdmin,
 } from "../TicketList/ticketsAction";
 
-const Dashboard = () => {
+const AdminDashboard = () => {
   const dispatch = useDispatch();
   const { tickets } = useSelector((state) => state.tickets);
+  const { isAdmin } = useSelector((state) => state.adminSignin);
 
   useEffect(() => {
-    if (!tickets.length) {
-      dispatch(fetchAllTickets());
+    if (isAdmin && !tickets.length) {
+      dispatch(fetchAllTicketsAdmin());
     }
   }, [tickets, dispatch]);
 
@@ -51,4 +52,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default AdminDashboard;

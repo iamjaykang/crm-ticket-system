@@ -22,7 +22,7 @@ const AdminPrivateRoute = ({ children }) => {
   }, [isAdmin, dispatch]);
   return (
     <>
-      {isAdmin ? <AdminLayout>{children}</AdminLayout> : <Navigate to="/" />}
+      {isAdmin ? <AdminLayout>{children}</AdminLayout> : <Navigate to="/admin/dashboard" />}
     </>
   );
 };

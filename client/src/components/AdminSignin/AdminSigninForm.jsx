@@ -48,14 +48,14 @@ const AdminSigninForm = () => {
       }
       dispatch(adminSigninSuccess());
       dispatch(getUserProfile());
-      navigate("/dashboard");
+      navigate("/admin/dashboard");
     } catch (error) {
       dispatch(adminSigninFail(error.message));
     }
   };
 
   useEffect(() => {
-    sessionStorage.getItem("accessJWT") && navigate("/dashboard");
+    sessionStorage.getItem("accessJWT") && navigate("/admin/dashboard");
   }, [navigate, isAdmin]);
   return (
     <div>

@@ -14,6 +14,7 @@ import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
 import AdminSignInPage from "./pages/AdminSigninPage/AdminSignInPage";
 import { useSelector } from "react-redux";
 import AdminPrivateRoute from "./components/AdminPrivateRoute/AdminPrivateRoute";
+import AdminDashboard from "./pages/Dashboard/AdminDashboard";
 
 function App() {
   const { isAdmin } = useSelector((state) => state.adminSignin);
@@ -35,21 +36,27 @@ function App() {
             path="/verification/:_id"
             element={<VerificationPage />}
           />
+
+          <Route
+            exact
+            path="/admin/dashboard"
+            element={
+              <AdminPrivateRoute>
+                <AdminDashboard />
+              </AdminPrivateRoute>
+            }
+          />
+
           <Route
             exact
             path="/dashboard"
             element={
-              isAdmin ? (
-                <AdminPrivateRoute>
-                  <Dashboard />
-                </AdminPrivateRoute>
-              ) : (
-                <PrivateRoute>
-                  <Dashboard />
-                </PrivateRoute>
-              )
+              <PrivateRoute>
+                <Dashboard />
+              </PrivateRoute>
             }
           />
+
           <Route
             exact
             path="/new-ticket"
