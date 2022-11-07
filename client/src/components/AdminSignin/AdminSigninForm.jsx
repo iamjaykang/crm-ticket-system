@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { signinPending, signinSuccess, signinFail } from "../Signin/signInSlice";
+import { adminSigninPending, adminSigninSuccess, adminSigninFail } from "./adminSigninSlice";
 import { adminSignin } from "../../api/userApi";
 import { useNavigate } from "react-router-dom";
 import { getUserProfile } from "../../pages/Dashboard/userAction";
@@ -11,7 +11,7 @@ const AdminSigninForm = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { isLoading, isAuth, error } = useSelector((state) => state.signin);
+  const { isLoading, isAdmin, error } = useSelector((state) => state.adminSignin);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -39,25 +39,24 @@ const AdminSigninForm = () => {
       return alert("Fill up all the required fields");
     }
 
-    dispatch(signinPending());
+    dispatch(adminSigninPending());
 
     try {
-      const isAuth = await adminSignin({ email, password });
-      if (isAuth.status === "error") {
-        return dispatch(signinFail(isAuth.message));
+      const isAdmin = await adminSignin({ email, password });
+      if (isAdmin.status === "error") {
+        return dispatch(adminSigninFail(isAdmin.message));
       }
-      dispatch(signinSuccess());
+      dispatch(adminSigninSuccess());
       dispatch(getUserProfile());
       navigate("/dashboard");
     } catch (error) {
-      dispatch(signinFail(error.message));
+      dispatch(adminSigninFail(error.message));
     }
-    //TODO call api to submit the form
   };
 
   useEffect(() => {
     sessionStorage.getItem("accessJWT") && navigate("/dashboard");
-  }, [navigate, isAuth]);
+  }, [navigate, isAdmin]);
   return (
     <div>
       <div className="bg-white max-w-sm shadow-md rounded px-8 pt-6 pb-8 mb-4 flex flex-col">

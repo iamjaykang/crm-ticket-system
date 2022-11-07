@@ -26,7 +26,7 @@ const RegistrationForm = () => {
   const [newUser, setNewUser] = useState(initialState);
   const [passwordError, setPasswordError] = useState(passVerification);
 
-  const { isLoading, status, message } = useSelector(
+  const { isLoading, message } = useSelector(
     (state) => state.userRegistration
   );
 

@@ -12,8 +12,11 @@ import ResetPasswordPage from "./pages/ResetPassword/ResetPasswordPage";
 import UpdatePasswordPage from "./pages/UpdatePassword/UpdatePasswordPage";
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
 import AdminSignInPage from "./pages/AdminSigninPage/AdminSignInPage";
+import { useSelector } from "react-redux";
+import AdminPrivateRoute from "./components/AdminPrivateRoute/AdminPrivateRoute";
 
 function App() {
+  const { isAdmin } = useSelector((state) => state.adminSignin);
   return (
     <div className="text-2xl">
       <Router>
@@ -27,14 +30,24 @@ function App() {
             path="/update-password/:pin/:email"
             element={<UpdatePasswordPage />}
           />
-          <Route exact path="/verification/:_id" element={<VerificationPage />} />
+          <Route
+            exact
+            path="/verification/:_id"
+            element={<VerificationPage />}
+          />
           <Route
             exact
             path="/dashboard"
             element={
-              <PrivateRoute>
-                <Dashboard />
-              </PrivateRoute>
+              isAdmin ? (
+                <AdminPrivateRoute>
+                  <Dashboard />
+                </AdminPrivateRoute>
+              ) : (
+                <PrivateRoute>
+                  <Dashboard />
+                </PrivateRoute>
+              )
             }
           />
           <Route

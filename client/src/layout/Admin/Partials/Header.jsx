@@ -1,19 +1,19 @@
 import React, { useState } from "react";
-import logo from "../../assets/images/crm-logo.ico";
+import logo from "../../../assets/images/crm-logo.ico";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
 import { Link } from "react-router-dom";
 import { LinkContainer } from "react-router-bootstrap";
-import { userLogout } from "../../api/userApi";
+import { userLogout } from "../../../api/userApi";
 import { useDispatch } from "react-redux";
-import { resetFetchTicket } from "../../pages/TicketList/ticketsSlice";
+import { resetAdminSigninStatus } from "../../../components/AdminSignin/adminSigninSlice";
 
 const Header = () => {
   const dispatch = useDispatch();
   const [navbarOpen, setNavbarOpen] = useState(false);
   const logMeOut = () => {
     userLogout();
-    dispatch(resetFetchTicket())
+    dispatch(resetAdminSigninStatus());
     localStorage.removeItem("crmSite");
     sessionStorage.removeItem("accessJWT");
   };
