@@ -114,6 +114,26 @@ const updateStatusClosed = ({ _id, clientId }) => {
   });
 };
 
+const updateStatusClosedAdmin = ({ _id }) => {
+  return new Promise((resolve, reject) => {
+    try {
+      TicketSchema.findOneAndUpdate(
+        { _id },
+        {
+          status: "Closed",
+        },
+        { new: true }
+      )
+        .then((data) => {
+          resolve(data);
+        })
+        .catch((error) => reject(error));
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+
 const deleteTicket = ({ _id, clientId }) => {
   return new Promise((resolve, reject) => {
     try {
@@ -137,4 +157,5 @@ module.exports = {
   deleteTicket,
   getAllTickets,
   getTicketByIdAdmin,
+  updateStatusClosedAdmin,
 };

@@ -5,6 +5,7 @@ const ticketUrl = rootUrl + "ticket/";
 const adminTicketUrl = rootUrl + "ticket/admin/";
 const adminTicketsUrl = rootUrl + "ticket/all-tickets";
 const updateStatusUrl = rootUrl + "ticket/close-ticket/";
+const adminUpdateStatusUrl = rootUrl + "ticket/admin/close-ticket/";
 
 export const getAllTickets = () => {
   return new Promise(async (resolve, reject) => {
@@ -88,6 +89,25 @@ export const updateTicketStatusClosed = (_id) => {
     try {
       const result = await axios.patch(
         updateStatusUrl + _id,
+        {},
+        {
+          headers: {
+            Authorization: sessionStorage.getItem("accessJWT"),
+          },
+        }
+      );
+      resolve(result.data);
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+
+export const updateTicketStatusClosedAdmin = (_id) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const result = await axios.patch(
+        adminUpdateStatusUrl + _id,
         {},
         {
           headers: {

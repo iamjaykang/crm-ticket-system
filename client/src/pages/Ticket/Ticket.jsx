@@ -7,6 +7,7 @@ import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
   closeTicket,
+  closeTicketAdmin,
   fetchSingleTicket,
   fetchSingleTicketAdmin,
 } from "../TicketList/ticketsAction";
@@ -82,7 +83,11 @@ const Ticket = () => {
           <button
             type="button"
             className="cursor-pointer py-2.5 px-5 mr-2 mb-2 text-sm font-medium text-cyan-600 focus:outline-none bg-white rounded-lg border border-cyan-600 hover:bg-gray-100 hover:text-cyan-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
-            onClick={() => dispatch(closeTicket(tId))}
+            onClick={() => {
+              isAdmin
+                ? dispatch(closeTicketAdmin(tId))
+                : dispatch(closeTicket(tId));
+            }}
             disabled={selectedTicket.status === "Closed"}
           >
             Close Ticket

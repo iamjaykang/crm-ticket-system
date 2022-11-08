@@ -4,6 +4,7 @@ import {
   getSingleTicket,
   getSingleTicketAdmin,
   updateTicketStatusClosed,
+  updateTicketStatusClosedAdmin,
 } from "../../api/ticketApi";
 import {
   fetchTicketLoading,
@@ -82,6 +83,22 @@ export const closeTicket = (_id) => async (dispatch) => {
   dispatch(closeTicketLoading());
   try {
     const result = await updateTicketStatusClosed(_id);
+    if (result.status === "error") {
+      return dispatch(closeTicketFail(result.message));
+    }
+
+    dispatch(fetchSingleTicket(_id));
+
+    dispatch(closeTicketSuccess(result.message));
+  } catch (error) {
+    dispatch(closeTicketFail(error.message));
+  }
+};
+
+export const closeTicketAdmin = (_id) => async (dispatch) => {
+  dispatch(closeTicketLoading());
+  try {
+    const result = await updateTicketStatusClosedAdmin(_id);
     if (result.status === "error") {
       return dispatch(closeTicketFail(result.message));
     }

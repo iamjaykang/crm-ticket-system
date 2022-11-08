@@ -12,7 +12,8 @@ const {
   updateStatusClosed,
   deleteTicket,
   getAllTickets,
-  getTicketByIdAdmin
+  getTicketByIdAdmin,
+  updateStatusClosedAdmin
 } = require("../models/ticket/ticket-model");
 const router = express.Router();
 
@@ -153,7 +154,6 @@ router.put(
     try {
       const { message, sender, type } = req.body;
       const { _id } = req.params;
-      const clientId = req.userId;
 
       const result = await updateClientReply({ _id, message, sender, type });
 
@@ -176,13 +176,38 @@ router.put(
   }
 );
 
-// Update ticket status to close
+// Update ticket status to closed
 router.patch("/close-ticket/:_id", userAuthorization, async (req, res) => {
   try {
     const { _id } = req.params;
     const clientId = req.userId;
 
     const result = await updateStatusClosed({ _id, clientId });
+
+    if (result._id) {
+      return res.json({
+        status: "success",
+        message: "The ticket has been closed",
+      });
+    }
+    res.json({
+      status: "error",
+      message: "Unable to update the ticket, please try again later",
+    });
+  } catch (error) {
+    res.json({
+      status: "error",
+      message: error.message,
+    });
+  }
+});
+
+// Update ticket status to closed as admin
+router.patch("/admin/close-ticket/:_id", userAuthorization, async (req, res) => {
+  try {
+    const { _id } = req.params;
+
+    const result = await updateStatusClosedAdmin({ _id });
 
     if (result._id) {
       return res.json({
