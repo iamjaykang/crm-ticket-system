@@ -22,15 +22,21 @@ const TicketList = () => {
         <BreadCrumb page="Ticket List" />
       </div>
       <div className="">
-        <div className="flex justify-between">
-          <Link to="/new-ticket">
-            <button
-              type="button"
-              className="text-white bg-cyan-500 hover:bg-cyan-600 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 m-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
-            >
-              Add new ticket
-            </button>
-          </Link>
+        <div
+          className={
+            isAdmin ? "flex items-end justify-end" : "flex justify-between"
+          }
+        >
+          {isAdmin ? null : (
+            <Link to="/new-ticket">
+              <button
+                type="button"
+                className="text-white bg-cyan-500 hover:bg-cyan-600 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 m-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+              >
+                Add new ticket
+              </button>
+            </Link>
+          )}
           <SearchForm />
         </div>
         <div className="p-4">

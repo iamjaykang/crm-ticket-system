@@ -76,6 +76,15 @@ function App() {
             }
           />
           <Route
+            exact
+            path="/admin/tickets"
+            element={
+              <AdminPrivateRoute>
+                <TicketList />
+              </AdminPrivateRoute>
+            }
+          />
+          <Route
             path="/ticket/:tId"
             element={
               <PrivateRoute>

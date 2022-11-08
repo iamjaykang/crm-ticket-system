@@ -6,7 +6,6 @@ const AdminLayout = ({ children }) => {
   return (
     <div className="flex flex-col h-screen bg-white dark:bg-slate-800">
       <header className="">
-        <p>admin page</p>
         <Header />
       </header>
       <main className="flex-1 flex justify-center my-8">

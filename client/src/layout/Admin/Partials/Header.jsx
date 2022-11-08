@@ -26,7 +26,7 @@ const Header = () => {
           <div className="w-full relative flex justify-between lg:w-auto lg:static lg:block lg:justify-start">
             <Link
               className="text-sm font-bold leading-relaxed inline-block mr-4 py-2 whitespace-nowrap uppercase text-white"
-              to="/"
+              to="/admin"
             >
               <img src={logo} alt="logo" width={70} />
             </Link>
@@ -47,7 +47,7 @@ const Header = () => {
           >
             <ul className="flex flex-col lg:flex-row list-none lg:ml-auto">
               <li className="nav-item">
-                <LinkContainer to="/dashboard">
+                <LinkContainer to="/admin/dashboard">
                   <Link
                     className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75"
                     onClick={() => setNavbarOpen(!navbarOpen)}
@@ -57,7 +57,7 @@ const Header = () => {
                 </LinkContainer>
               </li>
               <li className="nav-item">
-                <LinkContainer to="/tickets">
+                <LinkContainer to="/admin/tickets">
                   <Link
                     className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75"
                     onClick={() => setNavbarOpen(!navbarOpen)}
