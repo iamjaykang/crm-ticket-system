@@ -11,7 +11,8 @@ const {
   updateClientReply,
   updateStatusClosed,
   deleteTicket,
-  getAllTickets
+  getAllTickets,
+  getTicketByIdAdmin
 } = require("../models/ticket/ticket-model");
 const router = express.Router();
 
@@ -115,6 +116,23 @@ router.get("/:_id", userAuthorization, async (req, res) => {
     const clientId = req.userId;
 
     const result = await getTicketById(_id, clientId);
+
+    return res.json({
+      status: "success",
+      result,
+    });
+  } catch (error) {
+    res.json({ status: "error", message: error.message });
+  }
+});
+
+// Get ticket by id for admin user
+router.get("/admin/:_id", userAuthorization, async (req, res) => {
+  console.log(req.params);
+  try {
+    const { _id } = req.params;
+
+    const result = await getTicketByIdAdmin(_id);
 
     return res.json({
       status: "success",

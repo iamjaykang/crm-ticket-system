@@ -2,7 +2,8 @@ import axios from "axios";
 
 const rootUrl = process.env.REACT_APP_ROOT_URL;
 const ticketUrl = rootUrl + "ticket/";
-const adminTicketUrl = rootUrl + "ticket/all-tickets";
+const adminTicketUrl = rootUrl + "ticket/admin/";
+const adminTicketsUrl = rootUrl + "ticket/all-tickets";
 const updateStatusUrl = rootUrl + "ticket/close-ticket/";
 
 export const getAllTickets = () => {
@@ -23,7 +24,7 @@ export const getAllTickets = () => {
 export const adminGetAllTickets = () => {
   return new Promise(async (resolve, reject) => {
     try {
-      const result = await axios.get(adminTicketUrl, {
+      const result = await axios.get(adminTicketsUrl, {
         headers: {
           Authorization: sessionStorage.getItem("accessJWT"),
         },
@@ -40,6 +41,22 @@ export const getSingleTicket = (_id) => {
   return new Promise(async (resolve, reject) => {
     try {
       const result = await axios.get(ticketUrl + _id, {
+        headers: {
+          Authorization: sessionStorage.getItem("accessJWT"),
+        },
+      });
+
+      resolve(result);
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+
+export const getSingleTicketAdmin = (_id) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const result = await axios.get(adminTicketUrl + _id, {
         headers: {
           Authorization: sessionStorage.getItem("accessJWT"),
         },

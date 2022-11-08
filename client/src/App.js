@@ -83,6 +83,14 @@ function App() {
               </PrivateRoute>
             }
           />
+          <Route
+            path="/admin/ticket/:tId"
+            element={
+              <AdminPrivateRoute>
+                <Ticket />
+              </AdminPrivateRoute>
+            }
+          />
         </Routes>
       </Router>
     </div>

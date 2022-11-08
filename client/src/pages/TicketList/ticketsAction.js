@@ -2,6 +2,7 @@ import {
   adminGetAllTickets,
   getAllTickets,
   getSingleTicket,
+  getSingleTicketAdmin,
   updateTicketStatusClosed,
 } from "../../api/ticketApi";
 import {
@@ -52,7 +53,23 @@ export const filterSearchTicket = (str) => (dispatch) => {
 export const fetchSingleTicket = (_id) => async (dispatch) => {
   dispatch(fetchSingleTicketLoading());
   try {
-    const result = await getSingleTicket(_id);
+    const result = await getSingleTicketAdmin(_id);
+    dispatch(
+      fetchSingleTicketSuccess(
+        result.data.result.length && result.data.result[0]
+      )
+    );
+  } catch (error) {
+    dispatch(fetchSingleTicketFail(error.message));
+  }
+};
+
+//Actions for single ticket only for admin user
+export const fetchSingleTicketAdmin = (_id) => async (dispatch) => {
+  dispatch(fetchSingleTicketLoading());
+  try {
+    const result = await getSingleTicketAdmin(_id);
+    console.log(result)
     dispatch(
       fetchSingleTicketSuccess(
         result.data.result.length && result.data.result[0]

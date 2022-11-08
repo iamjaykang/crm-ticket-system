@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 const TicketTable = () => {
+  const { isAdmin } = useSelector((state) => state.adminSignin);
   const { searchTicketList, isLoading, error } = useSelector(
     (state) => state.tickets
   );
@@ -41,9 +42,15 @@ const TicketTable = () => {
                     {row._id}
                   </td>
                   <td className="py-4 px-6 dark:text-slate-300">
-                    <Link to={`/ticket/${row._id}`}>{row.subject}</Link>
+                    {isAdmin ? (
+                      <Link to={`/admin/ticket/${row._id}`}>{row.subject}</Link>
+                    ) : (
+                      <Link to={`/ticket/${row._id}`}>{row.subject}</Link>
+                    )}
                   </td>
-                  <td className="py-4 px-6 dark:text-slate-300">{row.status}</td>
+                  <td className="py-4 px-6 dark:text-slate-300">
+                    {row.status}
+                  </td>
                   <td className="flex items-center py-4 px-6 space-x-3 dark:text-slate-300">
                     {row.openedAt && new Date(row.openedAt).toLocaleString()}
                   </td>
@@ -51,7 +58,10 @@ const TicketTable = () => {
               ))
             ) : (
               <tr>
-                <td colSpan={4} className="text-center py-4 px-6 space-x-3 dark:text-slate-300">
+                <td
+                  colSpan={4}
+                  className="text-center py-4 px-6 space-x-3 dark:text-slate-300"
+                >
                   No ticket to show
                 </td>
               </tr>

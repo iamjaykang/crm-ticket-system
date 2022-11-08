@@ -1,11 +1,15 @@
-import React, { useState } from "react";
+import React from "react";
 import BreadCrumb from "../../components/BreadCrumb/BreadCrumb";
 import MessageHistory from "../../components/MessageHistory/MessageHistory";
 import UpdateTicket from "../../components/UpdateTicket/UpdateTicket";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { closeTicket, fetchSingleTicket } from "../TicketList/ticketsAction";
+import {
+  closeTicket,
+  fetchSingleTicket,
+  fetchSingleTicketAdmin,
+} from "../TicketList/ticketsAction";
 import { getUserProfile } from "../Dashboard/userAction";
 import { resetStatusReplyMsg } from "../TicketList/ticketsSlice";
 import Spinner from "../../components/Spinner/Spinner";
@@ -14,6 +18,7 @@ import Spinner from "../../components/Spinner/Spinner";
 
 const Ticket = () => {
   let { tId } = useParams();
+  const { isAdmin } = useSelector((state) => state.adminSignin);
   const dispatch = useDispatch();
   const { isLoading, error, selectedTicket, statusReplyMsg } = useSelector(
     (state) => state.tickets
@@ -24,7 +29,11 @@ const Ticket = () => {
 
   //   if ticket id equals params id ticket is set to the ticket
   useEffect(() => {
-    dispatch(fetchSingleTicket(tId));
+    {
+      isAdmin
+        ? dispatch(fetchSingleTicketAdmin(tId))
+        : dispatch(fetchSingleTicket(tId));
+    }
     !_id && dispatch(getUserProfile());
     statusReplyMsg && dispatch(resetStatusReplyMsg());
   }, [tId, dispatch]);
