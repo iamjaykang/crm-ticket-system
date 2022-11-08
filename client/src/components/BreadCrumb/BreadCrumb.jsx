@@ -1,14 +1,16 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { LinkContainer } from "react-router-bootstrap";
 import { Link } from "react-router-dom";
 
 const BreadCrumb = ({ page }) => {
+  const { isAdmin } = useSelector((state) => state.adminSignin);
   return (
     <div>
       <nav className="flex" aria-label="Breadcrumb">
         <ol className="inline-flex items-center space-x-1 md:space-x-3">
           <li className="inline-flex items-center">
-            <LinkContainer to="/">
+            <LinkContainer to={isAdmin ? "/admin" : "/"}>
               <Link className="inline-flex items-center text-sm font-medium text-cyan-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">
                 <svg
                   className="w-4 h-4 mr-2"
