@@ -20,7 +20,7 @@ const initialFormError = {
 const NewTicketForm = () => {
   const dispatch = useDispatch();
   const {
-    user: { name },
+    user: { name, type },
   } = useSelector((state) => state.user);
   const { isLoading, successMsg, error } = useSelector(
     (state) => state.openTicket
@@ -49,7 +49,7 @@ const NewTicketForm = () => {
       subject: !isSubjectValid,
     });
 
-    dispatch(openNewTicket({ ...formData, sender: name }));
+    dispatch(openNewTicket({ ...formData, sender: name, type: type }));
   };
 
   useEffect(() => {

@@ -6,8 +6,9 @@ import { resetResponseMsg } from "./updateTicketSlice";
 const UpdateTicket = ({ _id }) => {
   const dispatch = useDispatch();
   const {
-    user: { name },
+    user: { name, type },
   } = useSelector((state) => state.user);
+
   const { replyMsg, replyTicketError } = useSelector(
     (state) => state.replyTicket
   );
@@ -22,6 +23,7 @@ const UpdateTicket = ({ _id }) => {
     const msgObj = {
       message,
       sender: name,
+      type: type,
     };
     dispatch(replyOnTicket(_id, msgObj));
     setMessage("");

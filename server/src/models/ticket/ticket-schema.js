@@ -41,6 +41,11 @@ const TicketSchema = new Schema({
         required: true,
         default: Date.now(),
       },
+      type: {
+        type: String,
+        maxlength: 6,
+        required: true,
+      },
     },
   ],
 });

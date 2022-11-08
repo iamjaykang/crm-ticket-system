@@ -36,7 +36,6 @@ export const fetchAllTicketsAdmin = () => async (dispatch) => {
   try {
     //fetch data from API
     const result = await adminGetAllTickets();
-    console.log(result)
 
     result.data.result.length &&
       dispatch(fetchTicketSuccess(result.data.result));
@@ -69,7 +68,6 @@ export const fetchSingleTicketAdmin = (_id) => async (dispatch) => {
   dispatch(fetchSingleTicketLoading());
   try {
     const result = await getSingleTicketAdmin(_id);
-    console.log(result)
     dispatch(
       fetchSingleTicketSuccess(
         result.data.result.length && result.data.result[0]

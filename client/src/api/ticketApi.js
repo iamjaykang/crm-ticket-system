@@ -29,7 +29,6 @@ export const adminGetAllTickets = () => {
           Authorization: sessionStorage.getItem("accessJWT"),
         },
       });
-      console.log(result)
       resolve(result);
     } catch (error) {
       reject(error);
@@ -84,7 +83,7 @@ export const updateReplyTicket = (_id, msgObj) => {
   });
 };
 
-export const updateTicketStatusClosed = (_id, msgObj) => {
+export const updateTicketStatusClosed = (_id) => {
   return new Promise(async (resolve, reject) => {
     try {
       const result = await axios.patch(

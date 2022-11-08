@@ -7,6 +7,7 @@ import { LinkContainer } from "react-router-bootstrap";
 import { userLogout } from "../../../api/userApi";
 import { useDispatch } from "react-redux";
 import { resetAdminSigninStatus } from "../../../components/AdminSignin/adminSigninSlice";
+import { resetFetchTicket } from "../../../pages/TicketList/ticketsSlice";
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -14,6 +15,7 @@ const Header = () => {
   const logMeOut = () => {
     userLogout();
     dispatch(resetAdminSigninStatus());
+    dispatch(resetFetchTicket())
     localStorage.removeItem("crmSite");
     sessionStorage.removeItem("accessJWT");
   };

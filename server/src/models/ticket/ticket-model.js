@@ -71,7 +71,7 @@ const getTicketByIdAdmin = (_id) => {
   });
 };
 
-const updateClientReply = ({ _id, message, sender }) => {
+const updateClientReply = ({ _id, message, sender, type }) => {
   return new Promise((resolve, reject) => {
     try {
       TicketSchema.findOneAndUpdate(
@@ -79,7 +79,7 @@ const updateClientReply = ({ _id, message, sender }) => {
         {
           status: "Pending operator response",
           $push: {
-            conversations: { message, sender },
+            conversations: { message, sender, type },
           },
         },
         { new: true }

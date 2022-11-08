@@ -41,7 +41,7 @@ router.post(
   userAuthorization,
   async (req, res) => {
     try {
-      const { subject, sender, message } = req.body;
+      const { subject, sender, message, type } = req.body;
 
       const userId = req.userId;
 
@@ -52,6 +52,7 @@ router.post(
           {
             sender,
             message,
+            type
           },
         ],
       };
@@ -150,11 +151,11 @@ router.put(
   userAuthorization,
   async (req, res) => {
     try {
-      const { message, sender } = req.body;
+      const { message, sender, type } = req.body;
       const { _id } = req.params;
       const clientId = req.userId;
 
-      const result = await updateClientReply({ _id, message, sender });
+      const result = await updateClientReply({ _id, message, sender, type });
 
       if (result._id) {
         return res.json({

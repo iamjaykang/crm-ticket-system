@@ -63,13 +63,14 @@ router.get("/", userAuthorization, async (req, res) => {
 
   const userProfile = await getUserById(_id);
 
-  const { name, email } = userProfile;
+  const { name, email, type } = userProfile;
 
   res.json({
     user: {
       _id,
       name,
       email,
+      type,
     },
   });
 });

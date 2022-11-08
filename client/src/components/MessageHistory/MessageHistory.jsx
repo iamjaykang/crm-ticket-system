@@ -1,5 +1,4 @@
 import React from "react";
-import { useSelector } from "react-redux";
 
 const MessageHistory = ({ messages }) => {
   if (!messages) return null;
@@ -7,7 +6,9 @@ const MessageHistory = ({ messages }) => {
   return messages.map((message, i) => (
     <div
       key={i}
-      className="mt-5 flex flex-row even:flex-row-reverse justify-between text-base"
+      className={`mt-5 flex ${
+        message.type === "client" ? "flex-row" : "flex-row-reverse"
+      } justify-between text-base`}
     >
       <div className="send">
         <div className="font-bold text-start">{message.sender}</div>
