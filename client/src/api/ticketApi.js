@@ -136,3 +136,19 @@ export const createNewTicket = (formData) => {
     }
   });
 };
+
+export const deleteTicket = (_id) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const result = await axios.delete(ticketUrl + _id, {
+        headers: {
+          Authorization: sessionStorage.getItem("accessJWT"),
+        },
+      });
+      console.log(result);
+      resolve(result.data);
+    } catch (error) {
+      reject(error);
+    }
+  });
+};

@@ -3,22 +3,22 @@ import BreadCrumb from "../../components/BreadCrumb/BreadCrumb";
 import TicketTable from "../../components/TicketTable/TicketTable";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  fetchAllTickets,
-} from "../TicketList/ticketsAction";
+import { fetchAllTickets } from "../TicketList/ticketsAction";
+import Spinner from "../../components/Spinner/Spinner";
 
 const Dashboard = () => {
   const dispatch = useDispatch();
   const { tickets } = useSelector((state) => state.tickets);
-
-  useEffect(() => {
-    if (!tickets.length) {
-      dispatch(fetchAllTickets());
-    }
-  }, [tickets, dispatch]);
-
+  const { status, isDeleteLoading, deleteTicketMsg } = useSelector(
+    (state) => state.deleteTicket
+  );
   const pendingTickets = tickets.filter((row) => row.status !== "Closed");
-  const totatTickets = tickets.length;
+  const totalTickets = tickets.length;
+  useEffect(() => {
+    {
+      !totalTickets && dispatch(fetchAllTickets());
+    }
+  }, [dispatch, pendingTickets, totalTickets]);
   return (
     <div className="container flex flex-col">
       <div className="mb-6">
@@ -27,14 +27,22 @@ const Dashboard = () => {
       <div className=""></div>
       <div>
         <div className="text-black text-xl dark:text-gray-400">
-          Total tickets: {totatTickets}
+          Total tickets: {!totalTickets ? "0" : totalTickets}
         </div>
         <div className="text-black text-xl dark:text-gray-400">
           Pending tickets: {pendingTickets.length}
         </div>
       </div>
+      {status === "success" ? (
+        <div>{deleteTicketMsg}</div>
+      ) : (
+        <div>{deleteTicketMsg}</div>
+      )}
       <div className="flex justify-between mt-4">
-        <div className="mt-2 dark:text-gray-200">Recently Added tickets</div>{" "}
+        {isDeleteLoading && <Spinner />}
+        <div className="mt-2 dark:text-gray-200">
+          Recently Added tickets
+        </div>{" "}
         <Link to="/new-ticket">
           <button
             type="button"
@@ -45,7 +53,7 @@ const Dashboard = () => {
         </Link>
       </div>
       <div className="mt-2">
-        <TicketTable tickets={tickets} />
+        <TicketTable />
       </div>
     </div>
   );

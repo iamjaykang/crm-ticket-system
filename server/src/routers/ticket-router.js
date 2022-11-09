@@ -13,7 +13,7 @@ const {
   deleteTicket,
   getAllTickets,
   getTicketByIdAdmin,
-  updateStatusClosedAdmin
+  updateStatusClosedAdmin,
 } = require("../models/ticket/ticket-model");
 const router = express.Router();
 
@@ -53,7 +53,7 @@ router.post(
           {
             sender,
             message,
-            type
+            type,
           },
         ],
       };
@@ -98,7 +98,6 @@ router.get("/", userAuthorization, async (req, res) => {
 //TODO: add admin authorization
 router.get("/all-tickets", userAuthorization, async (req, res) => {
   try {
-
     const result = await getAllTickets();
 
     return res.json({
@@ -203,29 +202,33 @@ router.patch("/close-ticket/:_id", userAuthorization, async (req, res) => {
 });
 
 // Update ticket status to closed as admin
-router.patch("/admin/close-ticket/:_id", userAuthorization, async (req, res) => {
-  try {
-    const { _id } = req.params;
+router.patch(
+  "/admin/close-ticket/:_id",
+  userAuthorization,
+  async (req, res) => {
+    try {
+      const { _id } = req.params;
 
-    const result = await updateStatusClosedAdmin({ _id });
+      const result = await updateStatusClosedAdmin({ _id });
 
-    if (result._id) {
-      return res.json({
-        status: "success",
-        message: "The ticket has been closed",
+      if (result._id) {
+        return res.json({
+          status: "success",
+          message: "The ticket has been closed",
+        });
+      }
+      res.json({
+        status: "error",
+        message: "Unable to update the ticket, please try again later",
+      });
+    } catch (error) {
+      res.json({
+        status: "error",
+        message: error.message,
       });
     }
-    res.json({
-      status: "error",
-      message: "Unable to update the ticket, please try again later",
-    });
-  } catch (error) {
-    res.json({
-      status: "error",
-      message: error.message,
-    });
   }
-});
+);
 
 // Delete ticket
 router.delete("/:_id", userAuthorization, async (req, res) => {
@@ -234,6 +237,7 @@ router.delete("/:_id", userAuthorization, async (req, res) => {
     const clientId = req.userId;
 
     const result = await deleteTicket({ _id, clientId });
+    console.log(result)
 
     return res.json({
       status: "success",

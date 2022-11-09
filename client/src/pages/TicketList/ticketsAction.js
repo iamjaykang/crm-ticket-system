@@ -20,10 +20,11 @@ import {
 } from "./ticketsSlice";
 
 export const fetchAllTickets = () => async (dispatch) => {
-  dispatch(fetchTicketLoading());
   try {
+    dispatch(fetchTicketLoading());
     //fetch data from API
     const result = await getAllTickets();
+    console.log(result);
 
     result.data.result.length &&
       dispatch(fetchTicketSuccess(result.data.result));

@@ -1,16 +1,23 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { removeTicket } from "./ticketTableAction";
 
 const TicketTable = () => {
+  const dispatch = useDispatch();
   const { isAdmin } = useSelector((state) => state.adminSignin);
   const { searchTicketList, isLoading, error } = useSelector(
     (state) => state.tickets
   );
+  const deleteTicket = (id) => {
+    dispatch(removeTicket(id));
+  };
+  useEffect(() => {}, [dispatch]);
 
   if (isLoading) return <h3>Loading ...</h3>;
 
   if (error) return <h3>{error}</h3>;
+
   return (
     <div>
       <div className="overflow-x-auto relative shadow-xl sm:rounded-lg">
@@ -28,6 +35,9 @@ const TicketTable = () => {
               </th>
               <th scope="col" className="py-3 px-6">
                 Opened Date
+              </th>
+              <th scope="col" className="py-3 px-6">
+                Action
               </th>
             </tr>
           </thead>
@@ -51,8 +61,16 @@ const TicketTable = () => {
                   <td className="py-4 px-6 dark:text-slate-300">
                     {row.status}
                   </td>
-                  <td className="flex items-center py-4 px-6 space-x-3 dark:text-slate-300">
+                  <td className="py-4 px-6 dark:text-slate-300">
                     {row.openedAt && new Date(row.openedAt).toLocaleString()}
+                  </td>
+                  <td className="py-4 px-6">
+                    <button
+                      onClick={() => deleteTicket(row._id)}
+                      className="font-medium text-red-600 dark:text-red-500 hover:underline"
+                    >
+                      Remove
+                    </button>
                   </td>
                 </tr>
               ))

@@ -9,6 +9,7 @@ import userRegistrationReducer from './components/RegistrationForm/userRegistrat
 import userVerificationReducer from './components/UserVerification/userVerificationSlice'
 import passwordResetReducer from './components/PasswordResetForm/passwordResetSlice';
 import adminSigninReducer from  './components/AdminSignin/adminSigninSlice';
+import deleteTicketReducer from './components/TicketTable/ticketTableSlice';
 
 const store = configureStore({
     reducer: {
@@ -17,6 +18,7 @@ const store = configureStore({
         userRegistration: userRegistrationReducer,
         openTicket: newTicketReducer,
         replyTicket: replyTicketReducer,
+        deleteTicket: deleteTicketReducer,
         tickets: ticketReducer,
         signin: signinReducer,
         user: userReducer,

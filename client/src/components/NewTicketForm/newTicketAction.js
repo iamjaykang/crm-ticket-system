@@ -1,9 +1,9 @@
 import { createNewTicket } from "../../api/ticketApi";
+import { fetchAllTickets } from "../../pages/TicketList/ticketsAction";
 import {
   openNewTicketPending,
   openNewTicketSuccess,
   openNewTicketFail,
-  resetSuccessMsg
 } from "./newTicketSlice";
 
 export const openNewTicket = (formData) => (dispatch) => {
@@ -16,6 +16,7 @@ export const openNewTicket = (formData) => (dispatch) => {
       if (result.status === "error") {
         return dispatch(openNewTicketFail());
       }
+      dispatch(fetchAllTickets());
       dispatch(openNewTicketSuccess(result.message));
     } catch (error) {
       console.log(error);
